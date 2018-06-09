@@ -1,0 +1,123 @@
+<head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.16/vue.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.10/lodash.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.1/socket.io.js"></script>
+</head>
+
+<body>
+
+    <div id="app">
+        <p>{{state.turn}}</p>
+        <p>{{state.turnid}}</p>
+
+        <p>odd team</p>
+        <p @click="target">{{state.odd.char[0].name}}</p>
+        <p>{{state.odd.char[0].hp}}</p>
+        <button @click="queueSkill">{{state.odd.char[0].skills[0].name}}</button>
+
+        <p>even team</p>
+        <p @click="target">{{state.even.char[0].name}}</p>
+        <p>{{state.even.char[0].hp}}</p>
+        <button @click="queueSkill">{{state.even.char[0].skills[0].name}}</button>
+
+        <button @click="endTurn">End Turn</button>
+    </div>
+    <script src="naruto.js"></script>
+    <script>
+        function getParameterName(name, url) {
+            if (!url) url = window.location.href;
+            name = name.replace(/[\[\]]/g, "\\$&");
+            var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+                results = regex.exec(url);
+            if (!results) return null;
+            if (!results[2]) return "";
+            return decodeURIComponent(results[2].replace(/\+/g, " "));
+        }
+        let player = getParameterName('player')
+        console.log(player)
+
+        let socket = io();
+        let char = getChar()
+
+        let energy = {
+            g: 0,
+            r: 0,
+            b: 0,
+            w: 0
+        };
+
+        let odd = {
+            char: [_.cloneDeep({ ...char, name: 'naruto1' })],
+            energy: _.cloneDeep(energy),
+            name: "Odd",
+            using: []
+        };
+        let even = {
+            char: [_.cloneDeep({ ...char, name: 'naruto0' })],
+            energy: _.cloneDeep(energy),
+            name: "Even",
+            using: []
+        };
+
+        let stateBasic = {
+            odd: odd,
+            even: even,
+            turn: 1,
+            turnid: 'turn1',
+            timestamp: new Date().now
+        };
+
+        let stateMeta = {
+            room: '',
+            channel: '',
+            log: [],
+        }
+
+        let state = {
+            ...stateBasic,
+            ...stateMeta,
+        }
+
+        var app = new Vue({
+            el: '#app',
+            data: {
+                state: state,
+                action: []
+            },
+            methods: {
+                endTurn: function () {
+                    let self = this
+                    let payload = {
+                        state: this.state,
+                        action: this.action
+                    }
+                    socket.emit('battle', payload)
+                },
+                target: function () {
+
+                },
+                queueSkill: function () {
+                    this.action.unshift({
+                        caster: 'naruto0',
+                        skill: 0,
+                        target: 'naruto1',
+                        turnid: this.state.turnid
+                    })
+                }
+            }
+        })
+
+        socket.on('result', (res) => {
+            app.state = res
+            app.action = app.action.concat(res.odd.using)
+        })
+
+        socket.emit('initiate', {
+            player: player
+        })
+        socket.on('initiate', (res) => {
+            console.log(res)
+            app.state = res.state
+        })
+    </script>
+</body>
