@@ -1,0 +1,50 @@
+<head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.16/vue.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.10/lodash.min.js"></script>
+    <script src="builder.js"></script>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB"
+        crossorigin="anonymous">
+</head>
+
+<body>
+    <div id="app">
+        <div class="flex flex-row">
+            <div height: style="height: 30%;">
+                <button @click="char">New Character</button>
+                <button @click="skill">New Skills</button>
+                <button @click="effect">New Effect</button>
+            </div>
+            <textarea style="height: 70%; width: 100%; font-size: 12px;" v-model="result"></textarea>
+        </div>
+    </div>
+    <script>
+        let app = new Vue({
+            el: '#app',
+            data: {
+                test: 'hi'
+            },
+            computed: {
+                result: {
+                    get: function () {
+                        return JSON.stringify(this.test, null, 4)
+                    },
+                    set: function (newValue) {
+                        this.test = JSON.parse(newValue)
+                    }
+                }
+            },
+            methods: {
+                char: function () {
+                    this.test = char()
+                },
+                skill: function () {
+                    this.test = skill()
+                    // this.test.skills = this.test.skills.concat(skill())
+                },
+                effect: function () {
+                    this.test = effect()
+                }
+            }
+        })
+    </script>
+</body>

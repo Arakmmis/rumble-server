@@ -1,7 +1,9 @@
 const _ = require("lodash");
 let skillQueue = require("./skillQueue.js");
+let duration = require("./duration.js");
+let usingCleanup = require("./usingCleanup.js");
 
-async function battle(pkg, callback) {  
+async function battle(pkg, callback) {
   //Define
   let state = _.cloneDeep(pkg.state);
   const getQueue = () => {
@@ -28,16 +30,28 @@ async function battle(pkg, callback) {
   });
 
   //Post Sequence
-  const setUsing = pkg => {
-    state[ally].using = state[ally].using.concat(pkg);
+  state = await duration({
+    state: state,
+    ally: ally,
+    enemy: enemy,
+    queue: queue
+  });
+
+  const setUsing = queue => {
+    state[ally].using = state[ally].using.concat(queue);
   };
   setUsing(queue);
+  state = await usingCleanup({
+    state: state,
+    ally: ally,
+    enemy: enemy
+  });
 
-  const setTurn = () => {
+  const setTurn = state => {
     state.turn++;
     state.turnid = "turn" + state.turn;
   };
-  setTurn();
+  setTurn(state);
 
   //Exit
   callback(state);

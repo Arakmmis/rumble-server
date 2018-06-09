@@ -19,7 +19,7 @@ let effectBasic = {
   condition: [], //This mechanic will trigger if certain condition is fulfilled
   persistence: "", //Persistence of effect
   class: "", //Class of effect
-  scope: ["extent", ["items"], ["effect tyoe"]], //['include/exclude', 'classes', 'type'] || ['specific', ['name']]
+  scope: ["extent", ["items"], ["effect type"]], //['include/exclude', 'classes', 'type'] || ['specific', ['name']]
   specify: ["skill name", "consideration"] //Thinking about separating this from scope
 };
 
@@ -167,4 +167,9 @@ let cost = {
 
 let instakill = {
   type: "instakill"
+};
+
+//Prep State
+let allow = {
+  type: "allow"
 };

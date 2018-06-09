@@ -16,7 +16,7 @@ function getChar() {
 
   let effectBasic = {
     target: "target", //Caster or target
-    duration: 1, //How long it's active. Minimum of 1
+    duration: 2, //How long it's active. Minimum of 1
     during: "myTurn", //When will it trigger
     after: [], //Callback after mechanic trigger
     condition: [], //This mechanic will trigger if certain condition is fulfilled

@@ -7,6 +7,9 @@ app.use(express.static(__dirname + "/public"));
 app.get("/", (req, res) =>
   res.sendFile("index.html", { root: __dirname + "/views" })
 );
+app.get("/builder", (req, res) =>
+  res.sendFile("builder.html", { root: __dirname + "/views" })
+);
 
 require("./sockets/index.js")(http);
 

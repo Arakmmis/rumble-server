@@ -6,7 +6,6 @@ function damage(pkg) {
   let { enemy, effect } = pkg;
   //Logic
   state[enemy].char[0].hp = state[enemy].char[0].hp - effect.valDmg;
-  effect.duration = effect.duration - 1;
   console.log(effect);
   //Return
   return state;
