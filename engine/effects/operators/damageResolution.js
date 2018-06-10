@@ -4,8 +4,7 @@ let dr = require("../dr.js");
 
 async function damageResolution(pkg) {
   //Define
-  let { caster, target } = pkg;
-  let valDmg = effect.valDmg;
+  let { caster, target, valDmg } = pkg;
   //Logic
   //Buffs
   let getBuff = caster.status.onAttack.filter(x => x.type === "buff");
