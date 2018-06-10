@@ -30,22 +30,7 @@ async function duration(pkg) {
       ally: ally,
       enemy: enemy,
       turnid: pkg.turnid
-    });
-
-    //Sort
-    // state = await skillSort({
-    //   state: state,
-    //   ally: ally,
-    //   enemy: enemy,
-    //   turnid: pkg.turnid,
-    //   effects: skill.effects
-    // });
-    //Apply Effect
-    // state = await onSkillApply({
-    //   state: state,
-    //   enemy: enemy,
-    //   turnid: pkg.turnid
-    // });
+    });    
   }
   //Return
   return state;

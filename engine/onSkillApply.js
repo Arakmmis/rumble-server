@@ -1,25 +1,34 @@
 const _ = require("lodash");
 let damage = require("./effects/damage.js");
 
-async function onSkillApply(pkg) {
-  //Define
-  let state = _.cloneDeep(pkg.state);
-  let { enemy, turnid } = pkg;
-  let effects = state[enemy].char[0].status.onSkill.filter(
-    x => x.turnid === turnid
-  );
+async function apply(pkg) {
+  let { state, char } = pkg;
+  let effects = char.status.onSkill.filter(x => x.turnid === pkg.turnid);
   //Logic
   for (effect of effects) {
-    console.log(effect);
     if (effect.type === "damage") {
       // effect.duration = -1;
       state = damage({
         state: state,
-        enemy: enemy,
+        char: char,
         effect: effect
       });
-      console.log(state, effect);
     }
+  }
+  return state;
+}
+
+async function onSkillApply(pkg) {
+  //Define
+  let state = _.cloneDeep(pkg.state);
+  let { ally, enemy, turnid } = pkg;
+  let chars = state[ally].char.concat(state[enemy].char);
+  for (char of chars) {
+    state = await apply({
+      state: state,
+      char: char,
+      turnid: turnid
+    });
   }
   //Return
   return state;

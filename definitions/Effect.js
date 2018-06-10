@@ -19,8 +19,8 @@ let effectBasic = {
   condition: [], //This mechanic will trigger if certain condition is fulfilled
   persistence: "", //Persistence of effect
   class: "", //Class of effect
-  scope: ["extent", ["items"], ["effect type"]], //['include/exclude', 'classes', 'type'] || ['specific', ['name']]
-  specify: ["skill name", "consideration"] //Thinking about separating this from scope
+  scope: ['type', ['items'], ...others], // For Classes ["classes", ["items"], "extent (inclusive/declusive)", ["effect type"]], //For Skills ['skills', ['skill name']]
+  specify: ["skill name", "consideration"] //Thinking about separating this from scope. Better combine. If they need to boost class and name, dispatch two different buffs.
 };
 
 let effectMutable = {

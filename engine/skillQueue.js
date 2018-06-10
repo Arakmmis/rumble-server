@@ -21,6 +21,7 @@ async function skillQueue(pkg) {
       state: state,
       ally: ally,
       enemy: enemy,
+      caster: pkg.caster,
       target: pkg.target,
       turnid: pkg.turnid,
       effects: skill.effects
@@ -28,6 +29,7 @@ async function skillQueue(pkg) {
     //Apply Effect
     state = await onSkillApply({
       state: state,
+      ally: ally,
       enemy: enemy,
       turnid: pkg.turnid
     });

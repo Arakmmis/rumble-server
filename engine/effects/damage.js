@@ -1,15 +1,19 @@
 const _ = require("lodash");
+let damageResolution = require("./operators/damageResolution");
 
-function damage(pkg) {
+async function damage(pkg) {
   //Define
   let state = pkg.state;
   let { enemy, effect } = pkg;
+  let caster = state[effect.caster.team].char[effect.caster.id];
+  let target = pkg.char;
+  console.log(caster);
   //Logic
-  state[enemy].char[0].hp = state[enemy].char[0].hp - effect.valDmg;
-  console.log(effect);
+  valDmg = await damageResolution({ state, effect, caster, target });
+  console.log(valDmg);
+  target.hp = target.hp - valDmg;
   //Return
   return state;
-  // return state[enemy].char[0].hp - effect.valDmg;
 }
 
 module.exports = damage;
