@@ -20,7 +20,7 @@ module.exports = function(http) {
       };
       matches.initiateMatch(match);
       let res = matches.getMatch(match);
-      socket.emit("initiate", { state: res.state[0] });
+      socket.emit("initiate", { state: res.state[res.state.length - 1] });
     });
 
     socket.on("battle", packet => {

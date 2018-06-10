@@ -2,25 +2,47 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.16/vue.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.10/lodash.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.1/socket.io.js"></script>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB"
+        crossorigin="anonymous">
+    <style>
+        p {
+            margin: 0px;
+        }
+    </style>
 </head>
 
 <body>
 
     <div id="app">
-        <p>{{state.turn}}</p>
-        <p>{{state.turnid}}</p>
+        <div class="d-flex flex-row" v-if="loaded">
+            <div class="d-flex flex-column col-6">
+                <p>{{state.turn}}</p>
+                <p>{{state.turnid}}</p>
+                <p>{{turnNow}}</p>
 
-        <p>odd team</p>
-        <p @click="target">{{state.odd.char[0].name}}</p>
-        <p>{{state.odd.char[0].hp}}</p>
-        <button @click="queueSkill">{{state.odd.char[0].skills[0].name}}</button>
+                <p>odd team</p>
+                <button @click="target({id: 0, team: 'odd'})">{{state.odd.char[0].name}}</button>
+                <p>{{state.odd.char[0].hp}}</p>
+                <button @click="queueSkill({id: 0, team: 'odd', skill: skill.index})" v-for="skill in getSkills('odd')">{{skill.name}}</button>
 
-        <p>even team</p>
-        <p @click="target">{{state.even.char[0].name}}</p>
-        <p>{{state.even.char[0].hp}}</p>
-        <button @click="queueSkill">{{state.even.char[0].skills[0].name}}</button>
+                <p>even team</p>
+                <button @click="target({id: 0, team: 'even'})">{{state.even.char[0].name}}</button>
+                <p>{{state.even.char[0].hp}}</p>
+                <button @click="queueSkill({id: 0, team: 'even', skill: skill.index})" v-for="skill in getSkills('even')">{{skill.name}}</button>
 
-        <button @click="endTurn">End Turn</button>
+                <div>
+                    <button @click="endTurn">End Turn</button>
+                </div>
+            </div>
+            <div class="d-flex flex-row col-6 flex-wrap">
+                <p>General</p>
+                <textarea style="height: 200px;">{{action}}</textarea>
+                <p>Odd</p>
+                <textarea style="height: 200px;">{{state.odd.char[0].status}}</textarea>
+                <p>Even</p>
+                <textarea style="height: 200px;">{{state.even.char[0].status}}</textarea>
+            </div>
+        </div>
     </div>
     <script src="naruto.js"></script>
     <script>
@@ -37,79 +59,121 @@
         console.log(player)
 
         let socket = io();
-        let char = getChar()
+        // let char = getChar()
 
-        let energy = {
-            g: 0,
-            r: 0,
-            b: 0,
-            w: 0
-        };
+        // let energy = {
+        //     g: 0,
+        //     r: 0,
+        //     b: 0,
+        //     w: 0
+        // };
 
-        let odd = {
-            char: [_.cloneDeep({ ...char, name: 'naruto1' })],
-            energy: _.cloneDeep(energy),
-            name: "Odd",
-            using: []
-        };
-        let even = {
-            char: [_.cloneDeep({ ...char, name: 'naruto0' })],
-            energy: _.cloneDeep(energy),
-            name: "Even",
-            using: []
-        };
+        // let odd = {
+        //     char: [_.cloneDeep({ ...char, name: 'naruto1' })],
+        //     energy: _.cloneDeep(energy),
+        //     name: "Odd",
+        //     using: []
+        // };
+        // let even = {
+        //     char: [_.cloneDeep({ ...char, name: 'naruto0' })],
+        //     energy: _.cloneDeep(energy),
+        //     name: "Even",
+        //     using: []
+        // };
 
-        let stateBasic = {
-            odd: odd,
-            even: even,
-            turn: 1,
-            turnid: 'turn1',
-            timestamp: new Date().now
-        };
+        // let stateBasic = {
+        //     odd: odd,
+        //     even: even,
+        //     turn: 1,
+        //     turnid: 'turn1',
+        //     timestamp: new Date().now
+        // };
 
-        let stateMeta = {
-            room: '',
-            channel: '',
-            log: [],
-        }
+        // let stateMeta = {
+        //     room: '',
+        //     channel: '',
+        //     log: [],
+        // }
 
-        let state = {
-            ...stateBasic,
-            ...stateMeta,
-        }
+        // let state = {
+        //     ...stateBasic,
+        //     ...stateMeta,
+        // }
 
         var app = new Vue({
             el: '#app',
             data: {
-                state: state,
+                loaded: false,
+                buffer: {
+                    caster: {},
+                    skill: null,
+                    target: {},
+                    turnid: ''
+                },
+                state: {},
                 action: []
             },
+            computed: {
+                turnNow: function () {
+                    return this.state.turn % 2 === 0 ? 'even turn' : 'odd turn'
+                }
+            },
             methods: {
+                getSkills: function (team) {
+                    // console.log(this.state[team].char[0].skills)
+                    return this.state[team].char[0].skills
+                },
                 endTurn: function () {
                     let self = this
                     let payload = {
                         state: this.state,
                         action: this.action
                     }
+                    this.action = []
                     socket.emit('battle', payload)
                 },
-                target: function () {
-
+                target: function (pkg) {
+                    let buffer = {
+                        caster: {
+                            id: this.buffer.caster.id,
+                            team: this.buffer.caster.team
+                        },
+                        skill: this.buffer.skill,
+                        target: {
+                            id: pkg.id,
+                            team: pkg.team
+                        },
+                        turnid: this.buffer.turnid
+                    }
+                    this.action.unshift(buffer)
                 },
-                queueSkill: function () {
-                    this.action.unshift({
-                        caster: 'naruto0',
-                        skill: 0,
-                        target: 'naruto1',
+                queueSkill: function (pkg) {
+                    let buffer = {
+                        caster: {
+                            id: pkg.id,
+                            team: pkg.team
+                        },
+                        skill: pkg.skill,
+                        target: {},
                         turnid: this.state.turnid
-                    })
+                    }
+                    this.buffer = buffer
                 }
             }
         })
 
         socket.on('result', (res) => {
+            console.log(res)
+            let team = ''
+            if (res.turn % 2 === 0) {
+                team = 'even'
+            }
+            if (res.turn % 2 === 1) {
+                team = 'odd'
+            }
+            console.log(team)
+            app.action = app.action.concat(res[team].using)
             app.state = res
-            app.action = app.action.concat(res.odd.using)
         })
 
         socket.emit('initiate', {
@@ -117,7 +181,18 @@
         })
         socket.on('initiate', (res) => {
             console.log(res)
+            let team = ''
+            if (res.state.turn % 2 === 0) {
+                team = 'even'
+            }
+            if (res.state.turn % 2 === 1) {
+                team = 'odd'
+            }
+            console.log(team)
+            // console.log(res.state[team])
+            app.action = app.action.concat(res.state[team].using)
             app.state = res.state
+            app.loaded = true
         })
     </script>
 </body>

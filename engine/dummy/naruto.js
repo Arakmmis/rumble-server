@@ -1,26 +1,3 @@
-let char = {
-  name: "naruto",
-  description: "",
-  anime: "",
-  credit: {
-    author: "",
-    pictures: "",
-    coder: ""
-  },
-  maxHp: 100,
-  category: [],
-  id: "",
-  status: {
-    onAttack: [],
-    onReceive: [],
-    onSkill: [],
-    onState: []
-  },
-  skills: [],
-  hp: 100,
-  alive: true
-};
-
 let effect1 = {
   type: "damage",
   valDmg: 20,
@@ -30,7 +7,7 @@ let effect1 = {
   caster: "naruto",
   turnid: "",
   target: "target",
-  duration: 1,
+  duration: 2,
   during: "myTurn",
   after: [],
   condition: [],
@@ -164,7 +141,7 @@ let skill2 = {
   picture: "",
   classes: "instant, chakra",
   id: "narutoskill2",
-  index: 0,
+  index: 1,
   caster: "naruto",
   persistence: "instant",
   class: "chakra",
@@ -309,7 +286,7 @@ let skill3 = {
   picture: "",
   classes: "",
   id: "",
-  index: 0,
+  index: 2,
   caster: "",
   persistence: "instant",
   class: "chakra",
@@ -376,7 +353,7 @@ let skill4 = {
   picture: "",
   classes: "",
   id: "",
-  index: 0,
+  index: 3,
   caster: "",
   persistence: "instant",
   class: "strategic",
@@ -402,4 +379,29 @@ let skill4 = {
   isIgnoreInvul: false
 };
 
-console.log('nothing\'s wrong')
+let char = {
+  name: "naruto",
+  description: "",
+  anime: "",
+  credit: {
+    author: "",
+    pictures: "",
+    coder: ""
+  },
+  maxHp: 100,
+  category: [],
+  id: "naruto",
+  status: {
+    onAttack: [],
+    onReceive: [],
+    onSkill: [],
+    onState: []
+  },
+  skills: [skill1, skill2, skill3, skill4],
+  hp: 100,
+  alive: true
+};
+
+module.exports = char;
+
+console.log("nothing's wrong");

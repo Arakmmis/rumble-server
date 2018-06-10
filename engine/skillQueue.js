@@ -1,4 +1,4 @@
-const _ = require('lodash')
+const _ = require("lodash");
 let getSkill = require("./getSkill.js");
 let skillSort = require("./skillSort.js");
 let onSkillApply = require("./onSkillApply.js");
@@ -12,6 +12,7 @@ async function skillQueue(pkg) {
     //Get Skill
     let skill = getSkill({
       ally: ally,
+      caster: pkg.caster,
       skill: pkg.skill,
       state: state
     });
@@ -20,6 +21,7 @@ async function skillQueue(pkg) {
       state: state,
       ally: ally,
       enemy: enemy,
+      target: pkg.target,
       turnid: pkg.turnid,
       effects: skill.effects
     });
@@ -32,6 +34,6 @@ async function skillQueue(pkg) {
   }
   //Return
   return state;
-};
+}
 
-module.exports = skillQueue
+module.exports = skillQueue;

@@ -14,7 +14,7 @@ let effectMeta = {
 let effectBasic = {
   target: "target", //Caster or target
   duration: 1, //How long it's active. Minimum of 1
-  during: "myTurn", //When will it trigger
+  during: "odd", //When will it trigger, odd turn or even turn
   after: [], //Callback after mechanic trigger
   condition: [], //This mechanic will trigger if certain condition is fulfilled
   persistence: "", //Persistence of effect

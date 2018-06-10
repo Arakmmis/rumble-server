@@ -12,6 +12,7 @@ async function duration(pkg) {
     //Get Skill
     let skill = getSkill({
       ally: ally,
+      caster: pkg.caster,
       skill: pkg.skill,
       state: state
     });
