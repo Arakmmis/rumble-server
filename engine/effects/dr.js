@@ -3,9 +3,9 @@ const _ = require("lodash");
 function dr(pkg) {
   //Define
   //   let state = pkg.state;
-  let { valDmg, effect } = pkg;
+  let { valDmg, efDr } = pkg;
   //Logic
-  valDmg = valDmg - effect.valDr;
+  valDmg = valDmg - efDr.valDr;
   //Return
   return valDmg;
 }

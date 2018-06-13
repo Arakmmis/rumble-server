@@ -21,19 +21,49 @@
                 <p>{{turnNow}}</p>
 
                 <p>odd team</p>
+                <p>Energies: G:{{getEnergyTotal('odd').g}} B:{{getEnergyTotal('odd').b}} R:{{getEnergyTotal('odd').r}} W:{{getEnergyTotal('odd').w}}</p>
+                <p>Total: {{getEnergyTotal('odd').total}}</p>
                 <button @click="target({id: 0, team: 'odd'})">{{state.odd.char[0].name}}</button>
                 <p>{{state.odd.char[0].hp}}</p>
                 <div v-if="state.turn % 2 === 1">
-                    <button v-for="(skill, index) in getSkills('odd')" @click="queueSkill({id: 0, team: 'odd', skill: index})" :disabled="!skill.isAllowed">{{skill.name}}</button>
+                    <div v-for="(skill, index) in getSkills('odd')">
+                        <button @click="queueSkill({id: 0, team: 'odd', skill: index})" v-if="getSkillStatus(skill,'odd')">{{skill.name}}</button>
+                        <p v-if="!getSkillStatus(skill, 'odd')">{{skill.name}} inactive</p>
+                    </div>
                 </div>
 
 
                 <p>even team</p>
+                <p>Energies: G:{{getEnergyTotal('even').g}} B:{{getEnergyTotal('even').b}} R:{{getEnergyTotal('even').r}} W:{{getEnergyTotal('even').w}}</p>
+                <p>Total: {{getEnergyTotal('even').total}}</p>
                 <button @click="target({id: 0, team: 'even'})">{{state.even.char[0].name}}</button>
-
                 <p>{{state.even.char[0].hp}}</p>
                 <div v-if="state.turn % 2 === 0">
-                    <button v-for="(skill, index) in getSkills('even')" @click="queueSkill({id: 0, team: 'even', skill: index})" :disabled="!skill.isAllowed">{{skill.name}}</button>
+                    <div v-for="(skill, index) in getSkills('even')">
+                        <button @click="queueSkill({id: 0, team: 'even', skill: index})" v-if="getSkillStatus(skill,'even')">{{skill.name}}</button>
+                        <p v-if="!getSkillStatus(skill, 'even')">{{skill.name}} inactive</p>
+                    </div>
+                </div>
+
+                <div>
+                    <p>Energy Exchange</p>
+                    <p>Redeem: {{getRedeem().rd}}</p>
+                    <p>G:
+                        <button @click="setRedeem('g','add')">+</button>
+                        <button @click="setRedeem('g','substract')">-</button>
+                    </p>
+                    <p>B:
+                        <button @click="setRedeem('b','add')">+</button>
+                        <button @click="setRedeem('b','substract')">-</button>
+                    </p>
+                    <p>R:
+                        <button @click="setRedeem('r','add')">+</button>
+                        <button @click="setRedeem('r','substract')">-</button>
+                    </p>
+                    <p>W:
+                        <button @click="setRedeem('w','add')">+</button>
+                        <button @click="setRedeem('w','substract')">-</button>
+                    </p>
                 </div>
 
                 <div>
@@ -77,14 +107,107 @@
                     turnid: ''
                 },
                 state: {},
-                action: []
+                action: [],
+                redeem: {
+                    g: 0,
+                    b: 0,
+                    r: 0,
+                    w: 0
+                }
             },
             computed: {
                 turnNow: function () {
                     return this.state.turn % 2 === 0 ? 'even turn' : 'odd turn'
-                }
+                },
             },
             methods: {
+                getEnergyTotal: function (team) {
+                    // let team = this.state.turn % 2 === 0 ? 'even' : 'odd'
+                    let energy = this.state[team].energy
+                    let total = energy.g + energy.b + energy.r + energy.w
+
+                    let skills = this.action.filter(x => x.turnid === this.state.turnid)
+                    let cU = {
+                        g: 0,
+                        b: 0,
+                        r: 0,
+                        w: 0,
+                        rd: 0
+                    }
+                    for (let skill of skills) {
+                        console.log(skill)
+                        let cost = this.state[skill.caster.team].char[skill.caster.id].skills[skill.skill].cost
+                        // costUsing += cost.g + cost.b + cost.r + cost.w + cost.rd
+                        cU.g += cost.g
+                        cU.b += cost.b
+                        cU.r += cost.r
+                        cU.w += cost.w
+                        cU.rd += cost.rd
+                        console.log(cU)
+                    }
+                    console.log(skills)
+
+                    let payload = {
+                        g: energy.g - cU.g,
+                        b: energy.b - cU.b,
+                        r: energy.r - cU.r,
+                        w: energy.w - cU.w,
+                        total: total - (cU.g + cU.b + cU.r + cU.w + cU.rd)
+                    }
+                    console.log(payload)
+
+                    return payload
+                },
+                getRedeem: function () {
+                    let team = this.state.turn % 2 === 0 ? 'even' : 'odd'
+                    let redeem = this.redeem
+                    let total = redeem.g + redeem.b + redeem.r + redeem.w
+
+                    let skills = this.action.filter(x => x.turnid === this.state.turnid)
+                    let cU = {
+                        rd: 0
+                    }
+                    for (let skill of skills) {
+                        console.log(skill)
+                        let cost = this.state[skill.caster.team].char[skill.caster.id].skills[skill.skill].cost
+                        // costUsing += cost.g + cost.b + cost.r + cost.w + cost.rd                        
+                        cU.rd += cost.rd
+                        console.log(cU)
+                    }
+                    console.log(skills)
+
+                    let payload = {
+                        rd: cU.rd - total
+                    }
+                    console.log(payload)
+
+                    return payload
+                },
+                setRedeem: function (energy, increment) {
+                    if (increment === 'add') {
+                        this.redeem[energy] += 1
+                    } else {
+                        this.redeem[energy] -= 1
+                    }
+                    console.log(this.redeem)
+                },
+                getSkillStatus: function (skill, team) {
+                    if (!skill.isAllowed) {
+                        return false
+                    }
+
+                    let energy = this.state[team].energy
+                    let cost = skill.cost
+                    let total = this.getEnergyTotal(team).total
+                    let totalCost = cost.g + cost.b + cost.r + cost.w + cost.rd
+
+                    if (cost.g > energy.g || cost.b > energy.b || cost.r > energy.r || cost.w > energy.w || totalCost > total) {
+                        console.log(energy.g, cost.g)
+                        return false
+                    }
+
+                    return true
+                },
                 getSkills: function (team) {
                     // console.log(this.state[team].char[0].skills)
                     return this.state[team].char[0].skills
@@ -93,9 +216,9 @@
                     let self = this
                     let payload = {
                         state: this.state,
-                        action: this.action
+                        action: this.action,
+                        redeem: this.redeem
                     }
-                    this.action = []
                     socket.emit('battle', payload)
                 },
                 target: function (pkg) {
@@ -138,7 +261,14 @@
                 team = 'odd'
             }
             console.log(team)
-            app.action = app.action.concat(res[team].using)
+            // app.action = []
+            app.redeem = {
+                g: 0,
+                b: 0,
+                r: 0,
+                w: 0
+            }
+            app.action = res[team].using
             app.state = res
         })
 

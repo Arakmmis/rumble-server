@@ -2,9 +2,16 @@ const _ = require("lodash");
 
 function buff(pkg) {
   //Define
-  let { valDmg, effect } = pkg;
+  let { valDmg, efBuff, efDamage } = pkg;
   //Logic
-  valDmg = valDmg + effect.valBuff;
+  if (_.isObject(efBuff.scope)) {
+    if (efBuff.scope[0] === "skills") {
+      if (efDamage.name !== efBuff.scope[1]) {
+        return valDmg;
+      }
+    }
+  }
+  valDmg = valDmg + efBuff.valBuff;
   //Return
   return valDmg;
 }

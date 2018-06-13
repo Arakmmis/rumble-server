@@ -226,7 +226,6 @@ let effect3b = {
   condition: [],
   persistence: "instant",
   class: "chakra",
-  scope: ["extent", ["items"], ["effect tyoe"]],
   current: 0,
   usage: 0,
   stack: 0,

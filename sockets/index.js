@@ -35,7 +35,8 @@ module.exports = function(http) {
       //Engine Data
       let pkgEngine = {
         state: match.state[match.state.length - 1],
-        action: packet.action
+        action: packet.action,
+        redeem: packet.redeem
       };
       engine.battle(pkgEngine, res => {
         let pkgUpdate = {

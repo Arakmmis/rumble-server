@@ -4,17 +4,17 @@ let dr = require("../dr.js");
 
 async function damageResolution(pkg) {
   //Define
-  let { caster, target, valDmg } = pkg;
+  let { caster, target, valDmg, efDamage } = pkg;
   //Logic
   //Buffs
   let getBuff = caster.status.onAttack.filter(x => x.type === "buff");
-  for (effect of getBuff) {
-    valDmg = buff({ valDmg, effect });
+  for (efBuff of getBuff) {
+    valDmg = buff({ valDmg, efBuff, efDamage });
   }
   //Damage Reduction
   let getDr = target.status.onReceive.filter(x => x.type === "dr");
-  for (effect of getDr) {
-    valDmg = dr({ valDmg, effect });
+  for (efDr of getDr) {
+    valDmg = dr({ valDmg, efDr, efDamage });
   }
   //Return
   return valDmg;

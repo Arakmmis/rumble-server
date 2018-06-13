@@ -1,26 +1,20 @@
 const _ = require("lodash");
 let getChar = require("./dummyChar.js");
 let newChar = require("./dummy/naruto.js");
+let energy = require("./energy/energyGenerate");
 
 function initiate() {
   let char = getChar();
 
-  let energy = {
-    g: 0,
-    r: 0,
-    b: 0,
-    w: 0
-  };
-
   let odd = {
     char: [_.cloneDeep(newChar)],
-    energy: _.cloneDeep(energy),
+    energy: energy(1),
     name: "Odd",
     using: []
   };
   let even = {
     char: [_.cloneDeep(newChar)],
-    energy: _.cloneDeep(energy),
+    energy: energy(),
     name: "Even",
     using: []
   };

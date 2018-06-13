@@ -2,6 +2,7 @@ const _ = require("lodash");
 let getSkill = require("./getSkill.js");
 let skillSort = require("./skillSort.js");
 let onSkillApply = require("./onSkillApply.js");
+let energyCost = require("./energy/energyCost");
 
 async function skillQueue(pkg) {
   //Define
@@ -18,6 +19,9 @@ async function skillQueue(pkg) {
       skill: pkg.skill,
       state: state
     });
+    //Pay Energy Cost
+    let cost = skill.cost;
+    state = await energyCost({ state, ally, cost });
     //Sort
     state = await skillSort({
       state: state,
