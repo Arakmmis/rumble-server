@@ -160,8 +160,9 @@ let skill2 = {
   store: [],
   isHarmful: true,
   isAllowed: [
+    { default: false },
     {
-      subject: ["self", "state"], //What to look at
+      subject: "state", //What to look at
       evaluator: "exist", //How to evaluate
       comparison: "Shadow Clones", //Comparison against what. Can be an array with String and Number
       value: true //value to return after
@@ -176,7 +177,7 @@ let skill2 = {
 
 let effect3a = {
   type: "allow",
-  name: "",
+  name: "Shadow Clones",
   description: "",
   id: "",
   caster: "",
@@ -305,7 +306,7 @@ let skill3 = {
   active: true,
   store: [],
   isHarmful: true,
-  isAllowed: ["condition"],
+  isAllowed: true,
   isCooldown: false,
   isStore: false,
   isNoCounter: false,
@@ -372,7 +373,7 @@ let skill4 = {
   active: true,
   store: [],
   isHarmful: true,
-  isAllowed: ["condition"],
+  isAllowed: true,
   isCooldown: false,
   isStore: false,
   isNoCounter: false,

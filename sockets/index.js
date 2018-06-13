@@ -40,10 +40,10 @@ module.exports = function(http) {
       engine.battle(pkgEngine, res => {
         let pkgUpdate = {
           room: "test",
-          state: res
+          state: res.state
         };
         matches.updateMatch("state", pkgUpdate);
-        io.emit("result", res);
+        io.emit("result", res.view);
       });
     });
   });

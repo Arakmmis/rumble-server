@@ -3,8 +3,8 @@ const _ = require("lodash");
 function assign(status, effect, caster, turnid) {
   return status.concat({
     ...effect,
-    caster: caster,
-    turnid: turnid
+    caster,
+    turnid
   });
 }
 

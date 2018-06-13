@@ -8,11 +8,7 @@ async function apply(pkg) {
   for (effect of effects) {
     if (effect.type === "damage") {
       // effect.duration = -1;
-      state = damage({
-        state: state,
-        char: char,
-        effect: effect
-      });
+      state = damage({ state, char, effect });
     }
   }
   return state;
@@ -24,11 +20,7 @@ async function onSkillApply(pkg) {
   let { ally, enemy, turnid } = pkg;
   let chars = state[ally].char.concat(state[enemy].char);
   for (char of chars) {
-    state = await apply({
-      state: state,
-      char: char,
-      turnid: turnid
-    });
+    state = await apply({ state, char, turnid });
   }
   //Return
   return state;

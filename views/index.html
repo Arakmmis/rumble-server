@@ -23,12 +23,18 @@
                 <p>odd team</p>
                 <button @click="target({id: 0, team: 'odd'})">{{state.odd.char[0].name}}</button>
                 <p>{{state.odd.char[0].hp}}</p>
-                <button @click="queueSkill({id: 0, team: 'odd', skill: skill.index})" v-for="skill in getSkills('odd')">{{skill.name}}</button>
+                <div v-if="state.turn % 2 === 1">
+                    <button v-for="(skill, index) in getSkills('odd')" @click="queueSkill({id: 0, team: 'odd', skill: index})" :disabled="!skill.isAllowed">{{skill.name}}</button>
+                </div>
+
 
                 <p>even team</p>
                 <button @click="target({id: 0, team: 'even'})">{{state.even.char[0].name}}</button>
+
                 <p>{{state.even.char[0].hp}}</p>
-                <button @click="queueSkill({id: 0, team: 'even', skill: skill.index})" v-for="skill in getSkills('even')">{{skill.name}}</button>
+                <div v-if="state.turn % 2 === 0">
+                    <button v-for="(skill, index) in getSkills('even')" @click="queueSkill({id: 0, team: 'even', skill: index})" :disabled="!skill.isAllowed">{{skill.name}}</button>
+                </div>
 
                 <div>
                     <button @click="endTurn">End Turn</button>
@@ -59,46 +65,6 @@
         console.log(player)
 
         let socket = io();
-        // let char = getChar()
-
-        // let energy = {
-        //     g: 0,
-        //     r: 0,
-        //     b: 0,
-        //     w: 0
-        // };
-
-        // let odd = {
-        //     char: [_.cloneDeep({ ...char, name: 'naruto1' })],
-        //     energy: _.cloneDeep(energy),
-        //     name: "Odd",
-        //     using: []
-        // };
-        // let even = {
-        //     char: [_.cloneDeep({ ...char, name: 'naruto0' })],
-        //     energy: _.cloneDeep(energy),
-        //     name: "Even",
-        //     using: []
-        // };
-
-        // let stateBasic = {
-        //     odd: odd,
-        //     even: even,
-        //     turn: 1,
-        //     turnid: 'turn1',
-        //     timestamp: new Date().now
-        // };
-
-        // let stateMeta = {
-        //     room: '',
-        //     channel: '',
-        //     log: [],
-        // }
-
-        // let state = {
-        //     ...stateBasic,
-        //     ...stateMeta,
-        // }
 
         var app = new Vue({
             el: '#app',

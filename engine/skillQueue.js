@@ -8,7 +8,9 @@ async function skillQueue(pkg) {
   let state = _.cloneDeep(pkg.state);
   let { ally, enemy, queue } = pkg;
   //Logic
-  for (let pkg of queue) {
+  for (let { pkg, i } of queue.map((x, i) => {
+    return { pkg: x, i: i };
+  })) {
     //Get Skill
     let skill = getSkill({
       ally: ally,

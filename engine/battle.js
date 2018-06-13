@@ -2,6 +2,7 @@ const _ = require("lodash");
 let skillQueue = require("./skillQueue.js");
 let duration = require("./duration.js");
 let usingCleanup = require("./usingCleanup.js");
+let parser = require("./parser.js");
 
 async function battle(pkg, callback) {
   //Define
@@ -22,30 +23,16 @@ async function battle(pkg, callback) {
   let enemy = turn % 2 === 1 ? "even" : "odd";
 
   //Skill Queue
-  state = await skillQueue({
-    state: state,
-    ally: ally,
-    enemy: enemy,
-    queue: queue
-  });
+  state = await skillQueue({ state, ally, enemy, queue });
 
   //Post Sequence
-  state = await duration({
-    state: state,
-    ally: ally,
-    enemy: enemy,
-    queue: queue
-  });
+  state = await duration({ state, ally, enemy, queue });
 
   const setUsing = queue => {
     state[ally].using = state[ally].using.concat(queue);
   };
   setUsing(queue);
-  state = await usingCleanup({
-    state: state,
-    ally: ally,
-    enemy: enemy
-  });
+  state = await usingCleanup({ state, ally, enemy });
 
   const setTurn = state => {
     state.turn++;
@@ -53,8 +40,13 @@ async function battle(pkg, callback) {
   };
   setTurn(state);
 
+  //Parsing
+  console.log("parsing");
+  let view = await parser({ state, ally, enemy });
+
   //Exit
-  callback(state);
+  let payload = { state, view };
+  callback(payload);
 }
 
 module.exports = battle;
