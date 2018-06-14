@@ -21,13 +21,13 @@ function shuffle(array) {
 function energyGenerate(amount = 3) {
   let arr = [];
   for (let i = 0; i < 4; i++) {
-    arr.push("g", "b", "r", "w");
+    arr.push("g", "r", "b", "w");
   }
   let energy = shuffle(arr).splice(0, amount);
   return {
     g: energy.filter(x => x === "g").length,
-    b: energy.filter(x => x === "b").length,
     r: energy.filter(x => x === "r").length,
+    b: energy.filter(x => x === "b").length,    
     w: energy.filter(x => x === "w").length
   };
 }

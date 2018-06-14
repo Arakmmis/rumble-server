@@ -8,8 +8,8 @@ async function energyDistribution(pkg) {
   let energy = energyGenerate();
   //Logic
   state[ally].energy.g = state[ally].energy.g + energy.g;
-  state[ally].energy.b = state[ally].energy.b + energy.b;
   state[ally].energy.r = state[ally].energy.r + energy.r;
+  state[ally].energy.b = state[ally].energy.b + energy.b;  
   state[ally].energy.w = state[ally].energy.w + energy.w;
   //Return
   return state;

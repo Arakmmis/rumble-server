@@ -286,7 +286,7 @@
             }
             console.log(team)
             // console.log(res.state[team])
-            app.action = app.action.concat(res.state[team].using)
+            app.action = res[team].using
             app.state = res.state
             app.loaded = true
         })

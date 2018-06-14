@@ -9,14 +9,14 @@ async function skillQueue(pkg) {
   let state = _.cloneDeep(pkg.state);
   let { ally, enemy, queue } = pkg;
   //Logic
-  for (let { pkg, i } of queue.map((x, i) => {
-    return { pkg: x, i: i };
+  for (let { item, i } of queue.map((x, i) => {
+    return { item: x, i: i };
   })) {
     //Get Skill
     let skill = getSkill({
       ally: ally,
-      caster: pkg.caster,
-      skill: pkg.skill,
+      caster: item.caster,
+      skill: item.skill,
       state: state
     });
     //Pay Energy Cost
@@ -27,9 +27,9 @@ async function skillQueue(pkg) {
       state: state,
       ally: ally,
       enemy: enemy,
-      caster: pkg.caster,
-      target: pkg.target,
-      turnid: pkg.turnid,
+      caster: item.caster,
+      target: item.target,
+      turnid: item.turnid,
       effects: skill.effects
     });
     //Apply Effect
@@ -37,7 +37,8 @@ async function skillQueue(pkg) {
       state: state,
       ally: ally,
       enemy: enemy,
-      turnid: pkg.turnid
+      caster: item.caster,
+      turnid: item.turnid
     });
   }
   //Return

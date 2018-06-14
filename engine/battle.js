@@ -9,7 +9,9 @@ let energyCost = require("./energy/energyCost");
 function getGet(pkg) {
   const getQueue = () => {
     let action = _.cloneDeep(pkg.action);
-    return _.uniqBy(action, "turnid");
+    let result = _.uniqBy(action, v => [v.turnid, v.caster.id, v.caster.team].join());
+    console.log(result)
+    return result
   };
   const getTurn = state => {
     return state.turn;
@@ -50,7 +52,7 @@ async function battle(pkg, callback) {
   //Define
   let state = _.cloneDeep(pkg.state);
   let queue = getQueue();
-  let redeem = _.cloneDeep(pkg.redeem);  
+  let redeem = _.cloneDeep(pkg.redeem);
   let turn = getTurn(state);
 
   //Assign Turn
@@ -74,7 +76,6 @@ async function battle(pkg, callback) {
   state = await energyDistribution({ state, ally, enemy });
 
   //Parsing
-  console.log("parsing");
   let view = await parser({ state, ally, enemy });
 
   //Exit

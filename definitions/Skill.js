@@ -20,8 +20,8 @@ let skillBasic = {
   cooldown: 0,
   cost: {
     g: 0,
-    b: 0,
     r: 0,
+    b: 0,    
     w: 0,
     rd: 0
   }

@@ -10,20 +10,45 @@ module.exports = function(http) {
     console.log("connected");
 
     //Sockets
-    socket.on("initiate", packet => {
+    socket.on("initiate", async packet => {
       console.log(packet);
-
+      //Register Match
       let match = {
-        players: ["test", "test1"], //Later take from session
+        players: ["tes1", "test2"], //Later take from session
         room: "test",
         channel: "test"
       };
+      //Initiate Match
       matches.initiateMatch(match);
+      //Get Match and Prepare Payload
       let res = matches.getMatch(match);
-      socket.emit("initiate", { state: res.state[res.state.length - 1] });
+      //Parse State
+      let state = await engine.parser({
+        state: res.state[res.state.length - 1],
+        ally: "odd",
+        enemy: "even"
+      });
+      //Prepare Meta
+      let ally = state.odd.name === packet.player ? "odd" : "even";
+      let enemy = state.even.name !== packet.player ? "even" : "odd";
+      let meta = {
+        mode: "playing", //playing, spectate, replay
+        channel: "private", //private, ladder,
+        ally: ally,
+        enemy: enemy
+      };
+      console.log(state, meta)
+      //Prepare Payload
+      let payload = {
+        meta: meta,
+        state: state
+      };
+      //Emit Payload
+      socket.emit("initiate", payload);
     });
 
     socket.on("battle", packet => {
+      console.log(packet);
       //Match Data
       let pkgMatch = {
         players: ["test", "test1"], //Later take from session
@@ -44,7 +69,10 @@ module.exports = function(http) {
           state: res.state
         };
         matches.updateMatch("state", pkgUpdate);
-        io.emit("result", res.view);
+        let pkgEmit = {
+          state: res.view
+        };
+        io.emit("result", pkgEmit);
       });
     });
   });

@@ -34,6 +34,14 @@ async function skillSort(pkg) {
       let status = state[target.team].char[target.id].status;
       status.onState = assign(status.onState, effect, caster, turnid);
     }
+    if (effect.type === "invul") {
+      let status = state[target.team].char[target.id].status;
+      status.onState = assign(status.onState, effect, caster, turnid);
+    }
+    if (effect.type === "stun") {
+      let status = state[target.team].char[target.id].status;
+      status.onState = assign(status.onState, effect, caster, turnid);
+    }
   }
   //Return
   return state;

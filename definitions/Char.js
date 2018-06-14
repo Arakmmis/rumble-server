@@ -1,6 +1,7 @@
 let charView = {
   name: "",
   description: "",
+  picture: "",
   anime: "",
   credit: {
     author: "",

@@ -20,7 +20,7 @@ function matches() {
       players: pkg.players,
       room: pkg.room,
       channel: pkg.channel,
-      state: [instance]
+      state: [instance.state]
     };
     matches = matches.concat(match);
   };

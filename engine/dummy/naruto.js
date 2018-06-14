@@ -35,7 +35,7 @@ let effect1 = {
 let skill1 = {
   name: "Uzumaki Combo",
   description: "",
-  picture: "",
+  picture: "https://i.imgur.com/N7Icwsp.jpg",
   classes: "instant, physical",
   id: "",
   index: 0,
@@ -43,7 +43,7 @@ let skill1 = {
   persistence: "instant",
   class: "physical",
   effects: [effect1],
-  target: "",
+  target: "enemy",
   cooldown: 0,
   cost: {
     g: 1,
@@ -108,7 +108,7 @@ let effect2b = {
   caster: "",
   turnid: "",
   target: "target",
-  duration: 1,
+  duration: 2,
   during: "myTurn",
   after: [],
   condition: [],
@@ -138,7 +138,7 @@ let effect2b = {
 let skill2 = {
   name: "Rasengan",
   description: "",
-  picture: "",
+  picture: "https://i.imgur.com/K85sYdM.jpg",
   classes: "instant, chakra",
   id: "narutoskill2",
   index: 1,
@@ -146,7 +146,7 @@ let skill2 = {
   persistence: "instant",
   class: "chakra",
   effects: [effect2a, effect2b],
-  target: "",
+  target: "enemy",
   cooldown: 1,
   cost: {
     g: 0,
@@ -284,7 +284,7 @@ let effect3c = {
 let skill3 = {
   name: "Shadow Clones",
   description: "",
-  picture: "",
+  picture: "https://i.imgur.com/HgwONmv.jpg",
   classes: "",
   id: "",
   index: 2,
@@ -292,7 +292,7 @@ let skill3 = {
   persistence: "instant",
   class: "chakra",
   effects: [effect3a, effect3b, effect3c],
-  target: "",
+  target: "self",
   cooldown: 3,
   cost: {
     g: 0,
@@ -321,7 +321,7 @@ let effect4 = {
   caster: "",
   turnid: "",
   target: "target",
-  duration: 1,
+  duration: 2,
   during: "myTurn",
   after: [],
   condition: [],
@@ -351,15 +351,15 @@ let effect4 = {
 let skill4 = {
   name: "Sexy Technique",
   description: "",
-  picture: "",
+  picture: "https://i.imgur.com/SRh8P5d.jpg",
   classes: "",
   id: "",
   index: 3,
   caster: "",
   persistence: "instant",
   class: "strategic",
-  effects: [],
-  target: "",
+  effects: [effect4],
+  target: "self",
   cooldown: 4,
   cost: {
     g: 0,
@@ -383,6 +383,7 @@ let skill4 = {
 let char = {
   name: "naruto",
   description: "",
+  picture: "https://i.imgur.com/cC0JLiQ.jpg",
   anime: "",
   credit: {
     author: "",

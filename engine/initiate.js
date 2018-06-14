@@ -2,20 +2,21 @@ const _ = require("lodash");
 let getChar = require("./dummyChar.js");
 let newChar = require("./dummy/naruto.js");
 let energy = require("./energy/energyGenerate");
+let parser = require("./parser.js");
 
 function initiate() {
   let char = getChar();
 
   let odd = {
-    char: [_.cloneDeep(newChar)],
+    char: [_.cloneDeep(newChar), _.cloneDeep(newChar), _.cloneDeep(newChar)],
     energy: energy(1),
-    name: "Odd",
+    name: "test1",
     using: []
   };
   let even = {
-    char: [_.cloneDeep(newChar)],
+    char: [_.cloneDeep(newChar), _.cloneDeep(newChar), _.cloneDeep(newChar)],
     energy: energy(),
-    name: "Even",
+    name: "test2",
     using: []
   };
 
@@ -38,7 +39,9 @@ function initiate() {
     ...stateMeta
   };
 
-  return state;
+  //Exit
+  let payload = { state };
+  return payload;
 }
 
 module.exports = initiate;
