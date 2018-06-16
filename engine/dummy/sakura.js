@@ -1,4 +1,4 @@
-let effect1 = {
+let effect1a = {
   type: "damage",
   valDmg: 20,
   name: "Uzumaki Combo",
@@ -32,21 +32,54 @@ let effect1 = {
   isNoCounter: false
 };
 
-let skill1 = {
+let effect1b = {
+  type: "stun",
   name: "Uzumaki Combo",
   description: "",
-  picture: "https://i.imgur.com/N7Icwsp.jpg",
+  id: "narutoskill1",
+  caster: "naruto",
+  turnid: "",
+  target: "target",
+  duration: 1,
+  during: "next turn",
+  after: [],
+  condition: [],
+  persistence: "instant",
+  class: "physical",
+  current: 0,
+  usage: 0,
+  stack: 0,
+  charge: 0,
+  multi: 0,
+  active: true,
+  isStack: false,
+  isInvisible: false,
+  isMulti: false,
+  isUnremovable: false,
+  isMarking: false,
+  isHarmful: false,
+  isPiercing: false,
+  isActive: false,
+  isLastTurn: false,
+  isAllowed: true,
+  isNoCounter: false
+};
+
+let skill1 = {
+  name: "KO Punch",
+  description: "",
+  picture: "https://i.imgur.com/EqnqvRO.jpg",
   classes: "instant, physical",
   id: "",
   index: 0,
   caster: "naruto",
   persistence: "instant",
   class: "physical",
-  effects: [effect1],
+  effects: [effect1a, effect1b],
   target: "enemy",
   cooldown: 0,
   cost: {
-    g: 1,
+    g: 0,
     b: 0,
     r: 0,
     w: 0,
@@ -65,8 +98,8 @@ let skill1 = {
 };
 
 let effect2a = {
-  type: "damage",
-  valDmg: 45,
+  type: "heal",
+  valDmg: 25,
   name: "",
   description: "",
   id: "",
@@ -100,53 +133,18 @@ let effect2a = {
   isNoCounter: false
 };
 
-let effect2b = {
-  type: "stun",
-  name: "",
-  description: "",
-  id: "",
-  caster: "",
-  turnid: "",
-  target: "target",
-  duration: 1,
-  during: "next turn",
-  after: [],
-  condition: [],
-  persistence: "",
-  class: "",
-  scope: ["extent", ["items"], ["effect tyoe"]],
-  specify: ["skill name", "consideration"],
-  current: 0,
-  usage: 0,
-  stack: 0,
-  charge: 0,
-  multi: 0,
-  active: true,
-  isStack: false,
-  isInvisible: false,
-  isMulti: false,
-  isUnremovable: false,
-  isMarking: false,
-  isHarmful: false,
-  isPiercing: false,
-  isActive: false,
-  isLastTurn: false,
-  isAllowed: true,
-  isNoCounter: false
-};
-
 let skill2 = {
-  name: "Rasengan",
+  name: "Heal",
   description: "",
-  picture: "https://i.imgur.com/K85sYdM.jpg",
+  picture: "https://i.imgur.com/ujKvn9V.jpg",
   classes: "instant, energy",
   id: "narutoskill2",
   index: 1,
   caster: "naruto",
   persistence: "instant",
   class: "energy",
-  effects: [effect2a, effect2b],
-  target: "enemy",
+  effects: [effect2a],
+  target: "ally",
   cooldown: 1,
   cost: {
     g: 0,
@@ -176,7 +174,7 @@ let skill2 = {
 };
 
 let effect3a = {
-  type: "allow",
+  type: "ignore",
   name: "Shadow Clones",
   description: "",
   id: "",
@@ -189,7 +187,7 @@ let effect3a = {
   condition: [],
   persistence: "instant",
   class: "energy",
-  scope: ["extent", ["items"], ["effect tyoe"]],
+  scope: ["type", ["energy"], "exclusive"],
   specify: ["skill name", "consideration"],
   current: 0,
   usage: 0,
@@ -213,7 +211,7 @@ let effect3a = {
 let effect3b = {
   type: "buff",
   valBuff: 10,
-  scope: ["skills", "Uzumaki Combo"],
+  scope: ["skills", "KO Punch"],
   name: "",
   description: "",
   id: "",
@@ -247,7 +245,7 @@ let effect3b = {
 
 let effect3c = {
   type: "dr",
-  valDr: 15,
+  valDr: 10,
   name: "",
   description: "",
   id: "",
@@ -282,9 +280,9 @@ let effect3c = {
 };
 
 let skill3 = {
-  name: "Shadow Clones",
+  name: "Inner Sakura",
   description: "",
-  picture: "https://i.imgur.com/HgwONmv.jpg",
+  picture: "https://i.imgur.com/YVMTQcR.jpg",
   classes: "",
   id: "",
   index: 2,
@@ -349,9 +347,9 @@ let effect4 = {
 };
 
 let skill4 = {
-  name: "Sexy Technique",
+  name: "Sakura Hide",
   description: "",
-  picture: "https://i.imgur.com/SRh8P5d.jpg",
+  picture: "https://i.imgur.com/HTi9VYf.jpg",
   classes: "",
   id: "",
   index: 3,
@@ -381,9 +379,9 @@ let skill4 = {
 };
 
 let char = {
-  name: "naruto",
+  name: "Sakura",
   description: "",
-  picture: "https://i.imgur.com/cC0JLiQ.jpg",
+  picture: "https://i.imgur.com/IT6XF7l.jpg",
   anime: "",
   credit: {
     author: "",

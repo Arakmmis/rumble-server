@@ -3,6 +3,7 @@ let getSkill = require("./getSkill.js");
 let skillSort = require("./skillSort.js");
 let onSkillApply = require("./onSkillApply.js");
 let energyCost = require("./energy/energyCost");
+let skillCooldown = require("./skillCooldown");
 
 async function skillQueue(pkg) {
   //Define
@@ -12,6 +13,7 @@ async function skillQueue(pkg) {
   for (let { item, i } of queue.map((x, i) => {
     return { item: x, i: i };
   })) {
+    //Post Sequence
     //Get Skill
     let skill = getSkill({
       ally: ally,
@@ -22,6 +24,15 @@ async function skillQueue(pkg) {
     //Pay Energy Cost
     let cost = skill.cost;
     state = await energyCost({ state, ally, cost });
+    //Set Cooldown
+    state = await skillCooldown({
+      state,
+      caster: item.caster,
+      index: item.skill,
+      turnid: item.turnid
+    });
+
+    //Sequence
     //Sort
     state = await skillSort({
       state: state,
@@ -30,6 +41,8 @@ async function skillQueue(pkg) {
       caster: item.caster,
       target: item.target,
       turnid: item.turnid,
+      parent: item.skill,
+      picture: skill.picture,
       effects: skill.effects
     });
     //Apply Effect

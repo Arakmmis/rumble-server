@@ -5,6 +5,7 @@ async function durationReduce(pkg) {
   let state = _.cloneDeep(pkg.state);
   let { ally, enemy, turnid } = pkg;
   let chars = state[ally].char.concat(state[enemy].char);
+  let turn = state.turn % 2 === 0 ? "even" : "odd";
   //Logic
   for (char of chars) {
     let status = _
@@ -14,7 +15,7 @@ async function durationReduce(pkg) {
         char.status.onAttack,
         char.status.onState
       )
-      .filter(x => x.turnid === turnid);    
+      .filter(x => x.turnid === turnid && x.during === turn);    
     for (effect of status) {
       effect.duration = effect.duration - 1;
     }

@@ -1,6 +1,8 @@
 const _ = require("lodash");
 let getChar = require("./dummyChar.js");
 let newChar = require("./dummy/naruto.js");
+let shikamaru = require("./dummy/shikamaru.js");
+let sakura = require("./dummy/sakura.js");
 let energy = require("./energy/energyGenerate");
 let parser = require("./parser.js");
 
@@ -8,13 +10,13 @@ function initiate() {
   let char = getChar();
 
   let odd = {
-    char: [_.cloneDeep(newChar), _.cloneDeep(newChar), _.cloneDeep(newChar)],
+    char: [_.cloneDeep(newChar), _.cloneDeep(sakura), _.cloneDeep(shikamaru)],
     energy: energy(1),
     name: "test1",
     using: []
   };
   let even = {
-    char: [_.cloneDeep(newChar), _.cloneDeep(newChar), _.cloneDeep(newChar)],
+    char: [_.cloneDeep(newChar), _.cloneDeep(sakura), _.cloneDeep(shikamaru)],
     energy: energy(),
     name: "test2",
     using: []

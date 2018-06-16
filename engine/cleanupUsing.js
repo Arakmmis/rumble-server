@@ -1,6 +1,6 @@
 const _ = require("lodash");
 
-async function usingCleanup(pkg) {
+async function cleanupUsing(pkg) {
   //Define
   let state = _.cloneDeep(pkg.state);
   let { ally, enemy } = pkg;
@@ -37,4 +37,4 @@ async function usingCleanup(pkg) {
   return state;
 }
 
-module.exports = usingCleanup;
+module.exports = cleanupUsing;

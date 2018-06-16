@@ -1,14 +1,14 @@
 let effect1 = {
-  type: "damage",
+  type: "state",
   valDmg: 20,
-  name: "Uzumaki Combo",
+  name: "Meditate",
   description: "",
   id: "narutoskill1",
   caster: "naruto",
   turnid: "",
   target: "target",
-  duration: 1,
-  during: "this turn",
+  duration: 5,
+  during: "next turn",
   after: [],
   condition: [],
   persistence: "instant",
@@ -33,20 +33,20 @@ let effect1 = {
 };
 
 let skill1 = {
-  name: "Uzumaki Combo",
+  name: "Meditate",
   description: "",
-  picture: "https://i.imgur.com/N7Icwsp.jpg",
-  classes: "instant, physical",
+  picture: "https://i.imgur.com/HsaK0Sh.jpg",
+  classes: "instant, mental",
   id: "",
   index: 0,
   caster: "naruto",
   persistence: "instant",
-  class: "physical",
+  class: "mental",
   effects: [effect1],
   target: "enemy",
   cooldown: 0,
   cost: {
-    g: 1,
+    g: 0,
     b: 0,
     r: 0,
     w: 0,
@@ -66,14 +66,22 @@ let skill1 = {
 
 let effect2a = {
   type: "damage",
-  valDmg: 45,
+  valDmg: 15,
   name: "",
   description: "",
   id: "",
   caster: "",
   turnid: "",
   target: "target",
-  duration: 1,
+  duration: [
+    { default: 1 },
+    {
+      subject: "state", //What to look at
+      evaluator: "exist", //How to evaluate
+      comparison: "Meditate", //Comparison against what. Can be an array with String and Number
+      value: 2 //value to return after
+    }
+  ],
   during: "this turn",
   after: [],
   condition: [],
@@ -101,21 +109,28 @@ let effect2a = {
 };
 
 let effect2b = {
-  type: "stun",
+  type: "disable",
   name: "",
   description: "",
   id: "",
   caster: "",
   turnid: "",
   target: "target",
-  duration: 1,
+  duration: [
+    { default: 1 },
+    {
+      subject: "state", //What to look at
+      evaluator: "exist", //How to evaluate
+      comparison: "Meditate", //Comparison against what. Can be an array with String and Number
+      value: 2 //value to return after
+    }
+  ],
   during: "next turn",
   after: [],
   condition: [],
   persistence: "",
   class: "",
-  scope: ["extent", ["items"], ["effect tyoe"]],
-  specify: ["skill name", "consideration"],
+  scope: ["type", ["dr", "invul"]],
   current: 0,
   usage: 0,
   stack: 0,
@@ -136,14 +151,14 @@ let effect2b = {
 };
 
 let skill2 = {
-  name: "Rasengan",
+  name: "Shadow-Neck Bind",
   description: "",
-  picture: "https://i.imgur.com/K85sYdM.jpg",
+  picture: "https://i.imgur.com/psMw9dX.jpg",
   classes: "instant, energy",
   id: "narutoskill2",
   index: 1,
   caster: "naruto",
-  persistence: "instant",
+  persistence: "action",
   class: "energy",
   effects: [effect2a, effect2b],
   target: "enemy",
@@ -176,91 +191,28 @@ let skill2 = {
 };
 
 let effect3a = {
-  type: "allow",
-  name: "Shadow Clones",
+  type: "stun",
+  name: "Shadow Imitation",
   description: "",
   id: "",
   caster: "",
   turnid: "",
   target: "target",
-  duration: 4,
+  duration: [
+    { default: 1 },
+    {
+      subject: "state", //What to look at
+      evaluator: "exist", //How to evaluate
+      comparison: "Meditate", //Comparison against what. Can be an array with String and Number
+      value: 2 //value to return after
+    }
+  ],
   during: "next turn",
   after: [],
   condition: [],
-  persistence: "instant",
+  persistence: "control",
   class: "energy",
-  scope: ["extent", ["items"], ["effect tyoe"]],
-  specify: ["skill name", "consideration"],
-  current: 0,
-  usage: 0,
-  stack: 0,
-  charge: 0,
-  multi: 0,
-  active: true,
-  isStack: false,
-  isInvisible: false,
-  isMulti: false,
-  isUnremovable: false,
-  isMarking: false,
-  isHarmful: false,
-  isPiercing: false,
-  isActive: false,
-  isLastTurn: false,
-  isAllowed: true,
-  isNoCounter: false
-};
-
-let effect3b = {
-  type: "buff",
-  valBuff: 10,
-  scope: ["skills", "Uzumaki Combo"],
-  name: "",
-  description: "",
-  id: "",
-  caster: "",
-  turnid: "",
-  target: "target",
-  duration: 4,
-  during: "next turn",
-  after: [],
-  condition: [],
-  persistence: "instant",
-  class: "energy",
-  current: 0,
-  usage: 0,
-  stack: 0,
-  charge: 0,
-  multi: 0,
-  active: true,
-  isStack: false,
-  isInvisible: false,
-  isMulti: false,
-  isUnremovable: false,
-  isMarking: false,
-  isHarmful: false,
-  isPiercing: false,
-  isActive: false,
-  isLastTurn: false,
-  isAllowed: true,
-  isNoCounter: false
-};
-
-let effect3c = {
-  type: "dr",
-  valDr: 15,
-  name: "",
-  description: "",
-  id: "",
-  caster: "",
-  turnid: "",
-  target: "target",
-  duration: 4,
-  during: "next turn",
-  after: [],
-  condition: [],
-  persistence: "instant",
-  class: "energy",
-  scope: ["extent", ["items"], ["effect tyoe"]],
+  scope: ["classes", ["mental"], ["exclusive"]],
   specify: ["skill name", "consideration"],
   current: 0,
   usage: 0,
@@ -282,17 +234,17 @@ let effect3c = {
 };
 
 let skill3 = {
-  name: "Shadow Clones",
+  name: "Shadow Imitation",
   description: "",
-  picture: "https://i.imgur.com/HgwONmv.jpg",
+  picture: "https://i.imgur.com/BQLrO8J.jpg",
   classes: "",
   id: "",
   index: 2,
   caster: "",
   persistence: "instant",
   class: "energy",
-  effects: [effect3a, effect3b, effect3c],
-  target: "self",
+  effects: [effect3a],
+  target: "enemy",
   cooldown: 3,
   cost: {
     g: 0,
@@ -349,9 +301,9 @@ let effect4 = {
 };
 
 let skill4 = {
-  name: "Sexy Technique",
+  name: "Shikamaru Hide",
   description: "",
-  picture: "https://i.imgur.com/SRh8P5d.jpg",
+  picture: "https://i.imgur.com/z2XC1U4.jpg",
   classes: "",
   id: "",
   index: 3,
@@ -381,9 +333,9 @@ let skill4 = {
 };
 
 let char = {
-  name: "naruto",
+  name: "Nara Shikamaru",
   description: "",
-  picture: "https://i.imgur.com/cC0JLiQ.jpg",
+  picture: "https://i.imgur.com/1zBlB4a.jpg",
   anime: "",
   credit: {
     author: "",
@@ -392,7 +344,7 @@ let char = {
   },
   maxHp: 100,
   category: [],
-  id: "naruto",
+  id: "shikamaru",
   status: {
     onAttack: [],
     onReceive: [],

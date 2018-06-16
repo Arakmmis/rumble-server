@@ -3,6 +3,7 @@ let getSkill = require("./getSkill.js");
 
 //Parsers
 let isAllowed = require("./parsers/isAllowed.js");
+let isCooldown = require("./parsers/isCooldown.js");
 
 async function parser(pkg) {
   //Define
@@ -10,15 +11,18 @@ async function parser(pkg) {
   let { ally, enemy } = pkg;
   let chars = state[ally].char.concat(state[enemy].char);
 
-  //Logic
+  //First Layer Parsing
   for (let char of chars) {
     let skills = char.skills;
 
     for (let skill of skills) {
       //Parse isAllowed
       skill.isAllowed = isAllowed({ char, skill });
+      //Parse Cooldown
+      skill.isCooldown = isCooldown({ char, skill });
     }
   }
+
   //Return
   return state;
 }

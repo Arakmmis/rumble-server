@@ -7,8 +7,9 @@ async function duration(pkg) {
   //Define
   let state = _.cloneDeep(pkg.state);
   let { ally, enemy, queue } = pkg;
+  let allQueue = queue.concat(state[enemy].using)
   //Logic
-  for (let pkg of queue) {
+  for (let pkg of allQueue) {
     //Get Skill
     let skill = getSkill({
       ally: ally,
@@ -30,7 +31,7 @@ async function duration(pkg) {
       ally: ally,
       enemy: enemy,
       turnid: pkg.turnid
-    });    
+    });
   }
   //Return
   return state;
