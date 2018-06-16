@@ -5,9 +5,7 @@ async function damage(pkg) {
   //Define
   let state = pkg.state;
   let { enemy, effect, char } = pkg;
-  console.log(state[effect.caster.team]);
   let caster = state[effect.caster.team].char[effect.caster.id];
-  console.log(caster)
   let target = char;
   let efDamage = effect;
   let valDmg = effect.valDmg; //can have parser here ltr

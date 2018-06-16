@@ -1,9 +1,10 @@
 const _ = require("lodash");
-let skillQueue = require("./skillQueue.js");
-let duration = require("./duration.js");
-let cleanupUsing = require("./cleanupUsing.js");
-let cleanupCooldown = require("./cleanupCooldown.js");
-let parser = require("./parser.js");
+let skillQueue = require("./skill/skillQueue");
+let duration = require("./duration/duration.js");
+let cleanupUsing = require("./cleanup/cleanupUsing");
+let cleanupCooldown = require("./cleanup/cleanupCooldown");
+let cleanupPersistence = require("./cleanup/cleanupPersistence");
+let parser = require("./parsers/parser");
 let energyDistribution = require("./energy/energyDistribution");
 let energyCost = require("./energy/energyCost");
 
@@ -12,8 +13,13 @@ function getGet(pkg) {
     let action = _.cloneDeep(pkg.action);
     let result = _.uniqBy(action, v =>
       [v.turnid, v.caster.id, v.caster.team].join()
-    );    
-    return result;
+    );
+    return result.map(x => {
+      return {
+        ...x,
+        remove: false
+      };
+    });
   };
   const getTurn = state => {
     return state.turn;
@@ -27,8 +33,7 @@ function getGet(pkg) {
 
 function setSet() {
   const setUsing = ({ state, ally, queue }) => {
-    // state[ally].using = state[ally].using.concat(queue);
-    state[ally].using = queue
+    state[ally].using = queue;
   };
   const setTurn = state => {
     state.turn++;
@@ -75,6 +80,7 @@ async function battle(pkg, callback) {
   //Post Sequence
   state = await duration({ state, ally, enemy, queue });
   setUsing({ state, ally, queue }); //For skill reordering
+  state = await cleanupPersistence({ state, ally, enemy, queue });
   state = await cleanupUsing({ state, ally, enemy });
   setTurn(state); //Increase Turn
 

@@ -1,9 +1,9 @@
 const _ = require("lodash");
-let getSkill = require("./getSkill.js");
+let getSkill = require("../skill/getSkill.js");
 
 //Parsers
-let isAllowed = require("./parsers/isAllowed.js");
-let isCooldown = require("./parsers/isCooldown.js");
+let isAllowed = require("./isAllowed.js");
+let isCooldown = require("./isCooldown.js");
 
 async function parser(pkg) {
   //Define

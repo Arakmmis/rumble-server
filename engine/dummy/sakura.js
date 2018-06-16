@@ -40,7 +40,7 @@ let effect1b = {
   caster: "naruto",
   turnid: "",
   target: "target",
-  duration: 1,
+  duration: 3,
   during: "next turn",
   after: [],
   condition: [],

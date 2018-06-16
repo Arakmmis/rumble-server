@@ -4,13 +4,18 @@ async function cleanupUsing(pkg) {
   //Define
   let state = _.cloneDeep(pkg.state);
   let { ally, enemy } = pkg;
-  let using = state[ally].using;
+  let using = state[ally].using.concat(state[enemy].using);
 
   //Logic
   for (skill of using) {
     let turnid = skill.turnid;
     let chars = state[ally].char.concat(state[enemy].char);
     let count = 0;
+    //Check
+    if (skill.remove === true) {
+      continue;
+    }
+    //Logic
     for (char of chars) {
       let status = _
         .concat(
@@ -28,10 +33,12 @@ async function cleanupUsing(pkg) {
       skill.remove = false;
     }
   }
-  state[ally].using = using.filter(x => x.remove === false).map(x => {
-    delete x.remove;
-    return x;
-  });
+  state[ally].using = using.filter(
+    x => x.remove === false && x.caster.team === ally
+  );
+  state[enemy].using = using.filter(
+    x => x.remove === false && x.caster.team === enemy
+  );
 
   //Return
   return state;

@@ -4,7 +4,7 @@ let newChar = require("./dummy/naruto.js");
 let shikamaru = require("./dummy/shikamaru.js");
 let sakura = require("./dummy/sakura.js");
 let energy = require("./energy/energyGenerate");
-let parser = require("./parser.js");
+let parser = require("./parsers/parser.js");
 
 function initiate() {
   let char = getChar();

@@ -1,5 +1,5 @@
 const _ = require("lodash");
-let evaluate = require("./parsers/evaluate.js");
+let evaluate = require("../parsers/evaluate.js");
 
 function assign(pkg) {
   let { status, char, effect, caster, target, turnid, picture, parent } = pkg;

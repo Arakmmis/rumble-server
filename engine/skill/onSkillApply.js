@@ -1,8 +1,9 @@
 const _ = require("lodash");
-let damage = require("./effects/damage.js");
+let damage = require("../effects/damage.js");
 
 async function apply(pkg) {
   let { state, char } = pkg;
+  let turn = state.turn % 2 === 0 ? "even" : "odd";
   let effects = char.status.onSkill.filter(
     x =>
       x.turnid === pkg.turnid &&
@@ -11,6 +12,10 @@ async function apply(pkg) {
   );
   //Logic
   for (effect of effects) {
+    //Check
+    if (effect.during !== turn) {
+      continue;
+    }
     if (effect.type === "damage") {
       state = damage({ state, char, effect });
     }

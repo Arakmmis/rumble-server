@@ -74,7 +74,7 @@ let effect2a = {
   turnid: "",
   target: "target",
   duration: [
-    { default: 1 },
+    { default: 5 },
     {
       subject: "state", //What to look at
       evaluator: "exist", //How to evaluate
@@ -165,24 +165,16 @@ let skill2 = {
   cooldown: 1,
   cost: {
     g: 0,
-    b: 1,
+    b: 0,
     r: 0,
     w: 0,
-    rd: 1
+    rd: 0
   },
   counter: 0,
   active: true,
   store: [],
   isHarmful: true,
-  isAllowed: [
-    { default: false },
-    {
-      subject: "state", //What to look at
-      evaluator: "exist", //How to evaluate
-      comparison: "Shadow Clones", //Comparison against what. Can be an array with String and Number
-      value: true //value to return after
-    }
-  ],
+  isAllowed: true,
   isCooldown: false,
   isStore: false,
   isNoCounter: false,
@@ -199,7 +191,7 @@ let effect3a = {
   turnid: "",
   target: "target",
   duration: [
-    { default: 1 },
+    { default: 4 },
     {
       subject: "state", //What to look at
       evaluator: "exist", //How to evaluate
@@ -241,7 +233,7 @@ let skill3 = {
   id: "",
   index: 2,
   caster: "",
-  persistence: "instant",
+  persistence: "control",
   class: "energy",
   effects: [effect3a],
   target: "enemy",

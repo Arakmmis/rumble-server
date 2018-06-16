@@ -1,5 +1,5 @@
 const _ = require("lodash");
-let getSkill = require("./getSkill.js");
+let getSkill = require("../skill/getSkill.js");
 let durationReduce = require("./durationReduce.js");
 let durationRemove = require("./durationRemove.js");
 
