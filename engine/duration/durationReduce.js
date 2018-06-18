@@ -15,9 +15,10 @@ async function durationReduce(pkg) {
         char.status.onAttack,
         char.status.onState
       )
-      .filter(x => x.turnid === turnid && x.during === turn);    
+      .filter(x => x.turnid === turnid && x.during === turn);
     for (effect of status) {
       effect.duration = effect.duration - 1;
+      effect.current = effect.val;
     }
   }
   //Return

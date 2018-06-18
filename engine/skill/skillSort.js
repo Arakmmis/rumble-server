@@ -9,6 +9,7 @@ function assign(pkg) {
   //Return
   return status.concat({
     ...effect,
+    current: effect.val,
     duration: evaluate({ char, evaluatee: effect.duration }),
     during: effect.during === "this turn" ? thisTurn : nextTurn,
     caster,

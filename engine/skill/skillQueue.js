@@ -25,7 +25,7 @@ async function skillQueue(pkg) {
     let cost = skill.cost;
     state = await energyCost({ state, ally, cost });
 
-    //Counter
+    //Counter -> Later
     //Set Cooldown
     state = await skillCooldown({ state, item });
 

@@ -236,7 +236,7 @@ let skill3 = {
   persistence: "control",
   class: "energy",
   effects: [effect3a],
-  target: "enemy",
+  target: "all enemies",
   cooldown: 3,
   cost: {
     g: 0,
