@@ -1,18 +1,21 @@
+let isStun = require("../parsers/isStun");
+
 module.exports = function persistenceCheck(pkg) {
   //Define
   let { ally, state, item } = pkg;
-  let { caster, skill } = item;
+  let { caster } = item;
   let char = state[caster.team].char[caster.id];
-  let persistence = char.skills[skill].persistence;
+  let skill = char.skills[item.skill];
+  let persistence = skill.persistence;
   //Return
   if (persistence === "action") {
-    let stun = char.status.onState.some(x => x.type === "stun");
+    let stun = isStun({ char, skill });
     if (stun) {
       return true;
     }
   }
   if (persistence === "control") {
-    let stun = char.status.onState.some(x => x.type === "stun");
+    let stun = isStun({ char, skill });
     if (stun) {
       item.remove = true;
       return true;

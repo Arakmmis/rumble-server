@@ -79,7 +79,7 @@ let effect2a = {
   condition: [],
   persistence: "instant",
   class: "energy",
-  scope: ["extent", ["items"], ["effect tyoe"]],
+  scope: ['none'],
   specify: ["skill name", "consideration"],
   current: 0,
   usage: 0,
@@ -114,7 +114,7 @@ let effect2b = {
   condition: [],
   persistence: "",
   class: "",
-  scope: ["extent", ["items"], ["effect tyoe"]],
+  scope: ['none'],
   specify: ["skill name", "consideration"],
   current: 0,
   usage: 0,
@@ -162,7 +162,7 @@ let skill2 = {
   isAllowed: [
     { default: false },
     {
-      subject: "state", //What to look at
+      subject: "allow", //What to look at
       evaluator: "exist", //How to evaluate
       comparison: "Shadow Clones", //Comparison against what. Can be an array with String and Number
       value: true //value to return after
@@ -189,7 +189,7 @@ let effect3a = {
   condition: [],
   persistence: "instant",
   class: "energy",
-  scope: ["extent", ["items"], ["effect tyoe"]],
+  scope: ['none'],
   specify: ["skill name", "consideration"],
   current: 0,
   usage: 0,
@@ -213,7 +213,7 @@ let effect3a = {
 let effect3b = {
   type: "buff",
   val: 10,
-  scope: ["skills", "Uzumaki Combo"],
+  scope: ['none'],
   name: "",
   description: "",
   id: "",
@@ -260,7 +260,7 @@ let effect3c = {
   condition: [],
   persistence: "instant",
   class: "energy",
-  scope: ["extent", ["items"], ["effect tyoe"]],
+  scope: ['none'],
   specify: ["skill name", "consideration"],
   current: 0,
   usage: 0,
@@ -327,7 +327,7 @@ let effect4 = {
   condition: [],
   persistence: "instant",
   class: "strategic",
-  scope: ["extent", ["items"], ["effect tyoe"]],
+  scope: ['none'],
   specify: ["skill name", "consideration"],
   current: 0,
   usage: 0,

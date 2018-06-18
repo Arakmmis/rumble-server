@@ -19,6 +19,15 @@ function evaluate(pkg) {
             break;
           }
         }
+        if (subject === "allow") {
+          let compare = char.status.onState.some(
+            s => s.name === comparison && s.type === "allow"
+          );
+          if (compare) {
+            temporary = value;
+            break;
+          }
+        }
       } else {
         temporary = item.default;
       }
