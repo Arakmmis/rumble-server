@@ -1,11 +1,11 @@
 const _ = require("lodash");
 let evaluate = require("../parsers/evaluate.js");
 
-function assign(pkg) {
+function assign(pkg) { //Can be simplified
   let { status, char, effect, caster, target, turnid, picture, parent } = pkg;
   let thisTurn = caster.team;
   let nextTurn = caster.team === "odd" ? "even" : "odd";
-  console.log(evaluate({ char, evaluatee: effect.duration }));
+
   return status.concat({
     ...effect,
     duration: evaluate({ char, evaluatee: effect.duration }),
@@ -17,10 +17,10 @@ function assign(pkg) {
   });
 }
 
-async function skillSort(pkg) {
+async function skillSort(pkg) { //Can be simplified
   //Define
   let state = _.cloneDeep(pkg.state);
-  let { ally, enemy, caster, target, turnid, effects } = pkg;
+  let { target, turnid, effects } = pkg;
   //Check
   if (state.turnid !== turnid) {
     return state;

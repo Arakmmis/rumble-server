@@ -5,7 +5,7 @@ let getSkill = require("../skill/getSkill.js");
 let isAllowed = require("./isAllowed.js");
 let isCooldown = require("./isCooldown.js");
 
-async function parser(pkg) {
+async function parser(pkg) { //Work to parsing stuns and default skill disable
   //Define
   let state = _.cloneDeep(pkg.state);
   let { ally, enemy } = pkg;

@@ -1,12 +1,12 @@
 const _ = require("lodash");
 let getSkill = require("./getSkill.js");
-let skillSort = require("./skillSort.js");
+let skillTargeting = require("./skillTargeting.js");
 let onSkillApply = require("./onSkillApply.js");
 let energyCost = require("../energy/energyCost");
 let skillCooldown = require("./skillCooldown");
 let persistenceCheck = require("./persistenceCheck");
 
-async function skillQueue(pkg) {
+async function skillQueue(pkg) { //Can be simplified
   //Define
   let state = _.cloneDeep(pkg.state);
   let { ally, enemy, queue } = pkg;
@@ -38,11 +38,12 @@ async function skillQueue(pkg) {
       turnid: item.turnid
     });
 
-    //Sort
-    state = await skillSort({
+    //Target -> Need to simplify
+    state = await skillTargeting({
       state: state,
       ally: ally,
       enemy: enemy,
+      skill: skill,
       caster: item.caster,
       target: item.target,
       turnid: item.turnid,

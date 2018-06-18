@@ -3,11 +3,11 @@ const _ = require("lodash");
 function dr(pkg) {
   //Define
   //   let state = pkg.state;
-  let { valDmg, efDr } = pkg;
+  let { val, efDr } = pkg;
   //Logic
-  valDmg = valDmg - efDr.valDr;
+  val = val - efDr.val;
   //Return
-  return valDmg;
+  return val;
 }
 
 module.exports = dr;

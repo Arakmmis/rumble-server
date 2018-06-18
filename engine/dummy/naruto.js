@@ -1,6 +1,6 @@
 let effect1 = {
   type: "damage",
-  valDmg: 20,
+  val: 20,
   name: "Uzumaki Combo",
   description: "",
   id: "narutoskill1",
@@ -66,7 +66,7 @@ let skill1 = {
 
 let effect2a = {
   type: "damage",
-  valDmg: 45,
+  val: 45,
   name: "",
   description: "",
   id: "",
@@ -212,7 +212,7 @@ let effect3a = {
 
 let effect3b = {
   type: "buff",
-  valBuff: 10,
+  val: 10,
   scope: ["skills", "Uzumaki Combo"],
   name: "",
   description: "",
@@ -247,7 +247,7 @@ let effect3b = {
 
 let effect3c = {
   type: "dr",
-  valDr: 15,
+  val: 15,
   name: "",
   description: "",
   id: "",

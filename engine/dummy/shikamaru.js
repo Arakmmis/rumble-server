@@ -1,6 +1,6 @@
 let effect1 = {
   type: "state",
-  valDmg: 20,
+  val: 20,
   name: "Meditate",
   description: "",
   id: "narutoskill1",
@@ -66,7 +66,7 @@ let skill1 = {
 
 let effect2a = {
   type: "damage",
-  valDmg: 15,
+  val: 15,
   name: "",
   description: "",
   id: "",
@@ -161,7 +161,7 @@ let skill2 = {
   persistence: "action",
   class: "energy",
   effects: [effect2a, effect2b],
-  target: "enemy",
+  target: "all enemies",
   cooldown: 1,
   cost: {
     g: 0,
