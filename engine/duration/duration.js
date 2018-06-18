@@ -7,30 +7,25 @@ async function duration(pkg) {
   //Define
   let state = _.cloneDeep(pkg.state);
   let { ally, enemy, queue } = pkg;
-  let allQueue = queue.concat(state[enemy].using)
+  let allQueue = queue.concat(state[enemy].using);
   //Logic
-  for (let pkg of allQueue) {
+  for (let item of allQueue) {
     //Get Skill
-    let skill = getSkill({
-      ally: ally,
-      caster: pkg.caster,
-      skill: pkg.skill,
-      state: state
-    });
+    let skill = getSkill({ ally, state, item });
     //Reduce Duration
     state = await durationReduce({
-      state: state,
-      ally: ally,
-      enemy: enemy,
-      turnid: pkg.turnid
+      state,
+      ally,
+      enemy,
+      turnid: item.turnid
     });
 
     //Remove Effects
     state = await durationRemove({
-      state: state,
-      ally: ally,
-      enemy: enemy,
-      turnid: pkg.turnid
+      state,
+      ally,
+      enemy,
+      turnid: item.turnid
     });
   }
   //Return

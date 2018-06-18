@@ -1,11 +1,12 @@
 const _ = require("lodash");
 let evaluate = require("../parsers/evaluate.js");
 
-function assign(pkg) { //Can be simplified
+function assign(pkg) {
+  //Define
   let { status, char, effect, caster, target, turnid, picture, parent } = pkg;
   let thisTurn = caster.team;
   let nextTurn = caster.team === "odd" ? "even" : "odd";
-
+  //Return
   return status.concat({
     ...effect,
     duration: evaluate({ char, evaluatee: effect.duration }),
@@ -17,10 +18,12 @@ function assign(pkg) { //Can be simplified
   });
 }
 
-async function skillSort(pkg) { //Can be simplified
+async function skillSort(pkg) {
   //Define
   let state = _.cloneDeep(pkg.state);
   let { target, turnid, effects } = pkg;
+  let char = state[target.team].char[target.id];
+  let status = char.status;
   //Check
   if (state.turnid !== turnid) {
     return state;
@@ -30,34 +33,27 @@ async function skillSort(pkg) { //Can be simplified
     let payload = {
       ...pkg,
       effect,
-      char: state[target.team].char[target.id]
+      char
     };
     if (effect.type === "damage") {
-      let status = state[target.team].char[target.id].status;
       status.onSkill = assign({ status: status.onSkill, ...payload });
     }
     if (effect.type === "dr") {
-      let status = state[target.team].char[target.id].status;
       status.onReceive = assign({ status: status.onReceive, ...payload });
     }
     if (effect.type === "buff") {
-      let status = state[target.team].char[target.id].status;
       status.onAttack = assign({ status: status.onAttack, ...payload });
     }
     if (effect.type === "allow") {
-      let status = state[target.team].char[target.id].status;
       status.onState = assign({ status: status.onState, ...payload });
     }
     if (effect.type === "invul") {
-      let status = state[target.team].char[target.id].status;
       status.onState = assign({ status: status.onState, ...payload });
     }
     if (effect.type === "stun") {
-      let status = state[target.team].char[target.id].status;
       status.onState = assign({ status: status.onState, ...payload });
     }
     if (effect.type === "state") {
-      let status = state[target.team].char[target.id].status;
       status.onState = assign({ status: status.onState, ...payload });
     }
   }

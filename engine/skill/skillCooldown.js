@@ -3,7 +3,8 @@ const _ = require("lodash");
 async function skillCooldown(pkg) {
   //Define
   let state = _.cloneDeep(pkg.state);
-  let { caster, index, turnid } = pkg;
+  let { caster, turnid } = pkg.item;
+  let index = pkg.item.skill;
   let skill = state[caster.team].char[caster.id].skills[index];
   //Check
   if (state.turnid !== turnid) {

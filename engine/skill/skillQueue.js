@@ -6,11 +6,12 @@ let energyCost = require("../energy/energyCost");
 let skillCooldown = require("./skillCooldown");
 let persistenceCheck = require("./persistenceCheck");
 
-async function skillQueue(pkg) { //Can be simplified
+async function skillQueue(pkg) {
   //Define
   let state = _.cloneDeep(pkg.state);
   let { ally, enemy, queue } = pkg;
   //Logic
+
   //Post Sequence
   for (let { item, i } of queue
     .filter(x => x.turnid === state.turnid)
@@ -18,12 +19,7 @@ async function skillQueue(pkg) { //Can be simplified
       return { item: x, i: i };
     })) {
     //Get Skill
-    let skill = getSkill({
-      ally: ally,
-      caster: item.caster,
-      skill: item.skill,
-      state: state
-    });
+    let skill = getSkill({ ally, item, state });
 
     //Pay Energy Cost
     let cost = skill.cost;
@@ -31,27 +27,12 @@ async function skillQueue(pkg) { //Can be simplified
 
     //Counter
     //Set Cooldown
-    state = await skillCooldown({
-      state,
-      caster: item.caster,
-      index: item.skill,
-      turnid: item.turnid
-    });
+    state = await skillCooldown({ state, item });
 
-    //Target -> Need to simplify
-    state = await skillTargeting({
-      state: state,
-      ally: ally,
-      enemy: enemy,
-      skill: skill,
-      caster: item.caster,
-      target: item.target,
-      turnid: item.turnid,
-      parent: item.skill,
-      picture: skill.picture,
-      effects: skill.effects
-    });
+    //Target
+    state = await skillTargeting({ state, ally, enemy, skill, item });
   }
+
   //Sequence
   let allQueue = queue.concat(state[enemy].using);
   for (let { item, i } of allQueue.map((x, i) => {
@@ -59,25 +40,14 @@ async function skillQueue(pkg) { //Can be simplified
   })) {
     //Persistence
     //Check Caster
-    let persistence = persistenceCheck({
-      ally: ally,
-      caster: item.caster,
-      skill: item.skill,
-      state: state,
-      item: item
-    });
+    let persistence = persistenceCheck({ ally, state, item });
     if (persistence) {
       continue;
     }
     //Apply Effect
-    state = await onSkillApply({
-      state: state,
-      ally: ally,
-      enemy: enemy,
-      caster: item.caster,
-      turnid: item.turnid
-    });
+    state = await onSkillApply({ state, ally, enemy, item });
   }
+
   //Post Sequence
   //Assign modified Queue to enemy
   state[enemy].using = allQueue.filter(x => x.caster.team === enemy);

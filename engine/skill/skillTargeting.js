@@ -4,9 +4,12 @@ let skillSort = require("./skillSort.js");
 async function skillTargeting(pkg) {
   //Define
   let state = _.cloneDeep(pkg.state);
-  let { skill, enemy, turnid, effects } = pkg;
-  let targeting = skill.target;  
-  //Return
+  let { skill, enemy, item } = pkg;
+  let { effects, picture } = skill;
+  let { caster, target, turnid } = item;
+  let parent = item.skill;
+  let targeting = skill.target;
+  //Targeting
   if (targeting === "all enemies") {
     for (let { char, index } of state[enemy].char.map((x, i) => {
       return {
@@ -26,18 +29,26 @@ async function skillTargeting(pkg) {
       };
       //Sort
       state = await skillSort({
-        ...pkg,
+        ...item,
         target,
+        picture,
+        effects,
+        parent,
         state
       });
     }
   } else {
     //Sort for Individual
     state = await skillSort({
-      ...pkg
+      state,
+      target,
+      picture,
+      effects,
+      parent,
+      ...item
     });
   }
-
+  //Return
   return state;
 }
 
