@@ -16,6 +16,7 @@ module.exports = function(http) {
       let match = {
         room: packet.room
       };
+      socket.join(packet.room);
       //Initiate Match
       // matches.initiateMatch(match);
       //Get Match and Prepare Payload
@@ -70,7 +71,7 @@ module.exports = function(http) {
         let pkgEmit = {
           state: res.view
         };
-        io.emit("result", pkgEmit);
+        io.to(packet.room).emit("result", pkgEmit);
       });
     });
 
