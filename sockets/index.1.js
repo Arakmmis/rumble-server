@@ -14,15 +14,14 @@ module.exports = function(http) {
     socket.on("initiate", async packet => {
       //Register Match
       let match = {
-        room: packet.room
+        players: ["tes1", "test2"], //Later take from session
+        room: "test",
+        channel: "test"
       };
       //Initiate Match
-      // matches.initiateMatch(match);
+      matches.initiateMatch(match);
       //Get Match and Prepare Payload
       let res = matches.getMatch(match);
-      if (res === false) {
-        return;
-      }
       //Parse State
       let state = await engine.parser({
         state: res.state[res.state.length - 1],
@@ -51,7 +50,9 @@ module.exports = function(http) {
       console.log(packet);
       //Match Data
       let pkgMatch = {
-        room: packet.room
+        players: ["test", "test1"], //Later take from session
+        room: "test",
+        channel: "test"
       };
       let match = matches.getMatch(pkgMatch);
 
@@ -63,7 +64,7 @@ module.exports = function(http) {
       };
       engine.battle(pkgEngine, res => {
         let pkgUpdate = {
-          room: packet.room,
+          room: "test",
           state: res.state
         };
         matches.updateMatch("state", pkgUpdate);
@@ -76,38 +77,27 @@ module.exports = function(http) {
 
     socket.on("search", packet => {
       let pkgSearch = {
-        player: packet.player,
+        username: packet.username,
         char: [],
         socket: socket.id
       };
       queue.search(pkgSearch, x => {
         io.to(x.socket).emit("found", {
-          player: x.player,
           room: x.room
         });
         io.to(socket.id).emit("found", {
-          player: packet.player,
           room: x.room
         });
 
         //Register Match
         let match = {
-          players: [x.player, packet.player], //Later take from session
-          room: x.room,
+          players: ["tes1", "test2"], //Later take from session
+          room: "test",
           channel: "test"
         };
         //Initiate Match
         matches.initiateMatch(match);
       });
-    });
-
-    socket.on("cancel", packet => {
-      let pkgCancel = {
-        player: packet.player,
-        char: [],
-        socket: socket.id
-      };
-      queue.cancel(pkgCancel);
     });
   });
 };

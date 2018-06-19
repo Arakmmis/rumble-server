@@ -1,12 +1,53 @@
+const uniqid = require("uniqid");
 let engine = require("../engine/index.js")();
+
+//Functions
+function getRandomInt(max) {
+  return Math.floor(Math.random() * Math.floor(max));
+}
+
+function queue() {
+  let queue = [];
+
+  function matchMaking(payload, callback) {
+    let pool = queue.length;
+    let exist = queue.some(x => x.player === payload.player);
+    if (!exist) {
+      if (pool > 0) {
+        //There's Opponent
+        let randomIndex = getRandomInt(pool); //Randomly Choose Opponent
+        let opponent = queue[getRandomInt(pool)]; //Get Opponent from Queue
+        queue = queue.filter(x => x.player !== opponent.player); //Remove Opponent from Queue
+        callback(opponent); //Callback to Getter
+      } else {
+        //No Opponent
+        queue.push({
+          player: payload.player,
+          char: payload.char,
+          socket: payload.socket,
+          room: uniqid.time()
+        }); //Add self to Queue
+      }
+    }
+  }
+
+  function matchMakingCancel(payload, callback) {
+    queue = queue.filter(x => x.player !== payload.player); //Remove Opponent from Queue
+  }
+
+  //expose
+  return {
+    search: matchMaking,
+    cancel: matchMakingCancel
+  };
+}
 
 function matches() {
   //Define
   let match = {
     players: [],
     room: "",
-    channel: "",
-    state: []
+    channel: ""
   };
 
   //Store
@@ -14,7 +55,7 @@ function matches() {
 
   //Operators
   const setMatch = pkg => {
-    let instance = engine.initiate(pkg);
+    let instance = engine.initiate();
 
     let match = {
       players: pkg.players,
@@ -58,4 +99,4 @@ function matches() {
   };
 }
 
-module.exports = matches;
+module.exports = queue;

@@ -6,19 +6,19 @@ let sakura = require("./dummy/sakura.js");
 let energy = require("./energy/energyGenerate");
 let parser = require("./parsers/parser.js");
 
-function initiate() {
+function initiate(pkg) {
   let char = getChar();
 
   let odd = {
     char: [_.cloneDeep(newChar), _.cloneDeep(sakura), _.cloneDeep(shikamaru)],
     energy: energy(1),
-    name: "test1",
+    name: pkg.players[0],
     using: []
   };
   let even = {
     char: [_.cloneDeep(newChar), _.cloneDeep(sakura), _.cloneDeep(shikamaru)],
     energy: energy(),
-    name: "test2",
+    name: pkg.players[1],
     using: []
   };
 
@@ -31,8 +31,8 @@ function initiate() {
   };
 
   let stateMeta = {
-    room: "",
-    channel: "",
+    room: pkg.room,
+    channel: pkg.channel,
     log: []
   };
 

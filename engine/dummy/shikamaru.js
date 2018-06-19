@@ -12,7 +12,7 @@ let effect1a = {
   after: [],
   condition: [],
   persistence: "instant",
-  class: "physical",
+  class: "mental",
   current: 0,
   usage: 0,
   stack: 0,
@@ -46,7 +46,7 @@ let effect1b = {
   after: [],
   condition: [],
   persistence: "instant",
-  class: "physical",
+  class: "mental",
   current: 0,
   usage: 0,
   stack: 0,
@@ -108,7 +108,7 @@ let effect2a = {
   turnid: "",
   target: "target",
   duration: [
-    { default: 5 },
+    { default: 1 },
     {
       subject: "state", //What to look at
       evaluator: "exist", //How to evaluate
@@ -163,7 +163,7 @@ let effect2b = {
   after: [],
   condition: [],
   persistence: "",
-  class: "",
+  class: "energy",
   scope: ["types", ["dr", "invul"], "inclusive"],
   current: 0,
   usage: 0,
@@ -193,15 +193,15 @@ let skill2 = {
   index: 1,
   caster: "naruto",
   persistence: "action",
-  class: "physical",
+  class: "energy",
   effects: [effect2a, effect2b],
   target: "all enemies",
-  cooldown: 1,
+  cooldown: 0,
   cost: {
     g: 0,
     b: 0,
     r: 0,
-    w: 0,
+    w: 1,
     rd: 0
   },
   counter: 0,
@@ -225,7 +225,7 @@ let effect3a = {
   turnid: "",
   target: "target",
   duration: [
-    { default: 4 },
+    { default: 1 },
     {
       subject: "state", //What to look at
       evaluator: "exist", //How to evaluate
@@ -267,7 +267,7 @@ let skill3 = {
   index: 2,
   caster: "",
   persistence: "control",
-  class: "physical",
+  class: "energy",
   effects: [effect3a],
   target: "all enemies",
   cooldown: 3,
@@ -275,7 +275,7 @@ let skill3 = {
     g: 0,
     b: 0,
     r: 0,
-    w: 0,
+    w: 1,
     rd: 1
   },
   counter: 0,
