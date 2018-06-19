@@ -55,7 +55,9 @@ module.exports = function(http) {
         room: packet.room
       };
       let match = matches.getMatch(pkgMatch);
-
+      if (match === false) {
+        return;
+      }
       //Engine Data
       let pkgEngine = {
         state: match.state[match.state.length - 1],
