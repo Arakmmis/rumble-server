@@ -1,6 +1,6 @@
 let effect1a = {
   type: "damage",
-  val: 20,
+  val: 15,
   name: "Uzumaki Combo",
   description: "",
   id: "narutoskill1",
