@@ -113,7 +113,7 @@ let effect2b = {
   after: [],
   condition: [],
   persistence: "",
-  class: "energy",
+  class: "mental",
   scope: ['none'],
   specify: ["skill name", "consideration"],
   current: 0,
