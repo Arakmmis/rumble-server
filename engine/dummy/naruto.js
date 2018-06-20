@@ -213,7 +213,7 @@ let effect3a = {
 let effect3b = {
   type: "buff",
   val: 10,
-  scope: ['none'],
+  scope: ['skills', 'Shadow Clones'],
   name: "",
   description: "",
   id: "",
