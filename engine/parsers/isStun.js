@@ -11,6 +11,9 @@ function isStun(pkg) {
       if (item.scope[0] === "classes") {
         return item.scope[1].some(x => x === skill.class);
       }
+      if (item.scope[0] === "none") {
+        return true;
+      }
     }
   }
   //Return
