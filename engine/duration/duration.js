@@ -17,7 +17,9 @@ async function duration(pkg) {
       state,
       ally,
       enemy,
-      turnid: item.turnid
+      turnid: item.turnid,
+      parent: item.skill,
+      caster: item.caster
     });
 
     //Remove Effects

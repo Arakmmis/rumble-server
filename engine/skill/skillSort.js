@@ -39,6 +39,9 @@ async function skillSort(pkg) {
     if (effect.type === "damage") {
       status.onSkill = assign({ status: status.onSkill, ...payload });
     }
+    if (effect.type === "heal") {
+      status.onSkill = assign({ status: status.onSkill, ...payload });
+    }
     if (effect.type === "dr") {
       status.onReceive = assign({ status: status.onReceive, ...payload });
     }
@@ -55,6 +58,15 @@ async function skillSort(pkg) {
       status.onState = assign({ status: status.onState, ...payload });
     }
     if (effect.type === "state") {
+      status.onState = assign({ status: status.onState, ...payload });
+    }
+    if (effect.type === "ignore") {
+      status.onState = assign({ status: status.onState, ...payload });
+    }
+    if (effect.type === "disable") {
+      status.onState = assign({ status: status.onState, ...payload });
+    }
+    if (effect.type === "mark") {
       status.onState = assign({ status: status.onState, ...payload });
     }
   }

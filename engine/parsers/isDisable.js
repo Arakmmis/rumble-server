@@ -1,21 +1,13 @@
 const _ = require("lodash");
 let evaluate = require("./evaluate.js");
-let isIgnore = require("./isIgnore.js");
 
-function isStun(pkg) {
+function isIgnore(pkg) {
   //Define
   let { char, skill } = pkg;
   //Logic
-  let stun = char.status.onState.filter(x => x.type === "stun");
-  if (stun.length > 0) {
-    for (item of stun) {
-      //Check Ignore Stun
-      let ignore = isIgnore({ char, skill: item });
-      if (ignore) {
-        return false; //Escape if ignore is true
-      }
-
-      //Continue to evaluate Stun
+  let ignore = char.status.onState.filter(x => x.type === "disable");
+  if (ignore.length > 0) {
+    for (item of ignore) {
       if (item.scope[0] === "types") {
         if (item.scope[2] === "inclusive") {
           return item.scope[1].some(x => x === skill.type);
@@ -41,4 +33,4 @@ function isStun(pkg) {
   return false;
 }
 
-module.exports = isStun;
+module.exports = isIgnore;

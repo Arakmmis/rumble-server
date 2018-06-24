@@ -158,15 +158,7 @@ let skill2 = {
   active: true,
   store: [],
   isHarmful: true,
-  isAllowed: [
-    { default: false },
-    {
-      subject: "state", //What to look at
-      evaluator: "exist", //How to evaluate
-      comparison: "Shadow Clones", //Comparison against what. Can be an array with String and Number
-      value: true //value to return after
-    }
-  ],
+  isAllowed: true,
   isCooldown: false,
   isStore: false,
   isNoCounter: false,
@@ -188,8 +180,7 @@ let effect3a = {
   condition: [],
   persistence: "instant",
   class: "mental",
-  scope: ["types", ["energy"], "exclusive"],
-  specify: ["skill name", "consideration"],
+  scope: ["types", ["stun"], "inclusive"],
   current: 0,
   usage: 0,
   stack: 0,

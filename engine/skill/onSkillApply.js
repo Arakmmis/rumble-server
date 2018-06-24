@@ -1,5 +1,6 @@
 const _ = require("lodash");
 let damage = require("../effects/damage.js");
+let heal = require("../effects/heal.js");
 
 async function apply(pkg) {
   let { state, char } = pkg;
@@ -18,6 +19,9 @@ async function apply(pkg) {
     }
     if (effect.type === "damage") {
       state = damage({ state, char, effect });
+    }
+    if (effect.type === "heal") {
+      state = heal({ state, char, effect });
     }
   }
   return state;
