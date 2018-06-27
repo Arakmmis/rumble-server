@@ -2,7 +2,7 @@ let isStun = require("../parsers/isStun");
 
 module.exports = function persistenceCheck(pkg) {
   //Define
-  let { ally, state, item } = pkg;
+  let { state, item } = pkg;
   let { caster } = item;
   let char = state[caster.team].char[caster.id];
   let skill = char.skills[item.skill];
@@ -22,5 +22,4 @@ module.exports = function persistenceCheck(pkg) {
     }
   }
   return false;
-  // return state[ally].char[caster.id].skills[skill];
 };

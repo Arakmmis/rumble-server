@@ -194,7 +194,7 @@ let skill2 = {
   caster: "naruto",
   persistence: "action",
   class: "energy",
-  effects: [effect2a, effect2b],
+  effects: [effect2a],
   target: "all enemies",
   cooldown: 0,
   cost: {
