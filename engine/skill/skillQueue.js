@@ -33,7 +33,7 @@ async function skillQueue(pkg) {
     state = await skillTargeting({ state, ally, enemy, skill, item });
   }
   //Persistence Target State Check
-  // let chars = state[ally].char.concat(statepenemy.char);
+  // let chars = state[ally].chars.concat(statepenemy.chars);
   // for (let char of chars) {
   //   //Persistence Check
   //   //Target State Check

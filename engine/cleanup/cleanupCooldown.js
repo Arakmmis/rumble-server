@@ -5,7 +5,7 @@ async function cleanupCooldown(pkg) {
   let state = _.cloneDeep(pkg.state);
   let { ally } = pkg;
   let turnid = state.turnid;
-  let chars = state[ally].char;
+  let chars = state[ally].chars;
   //Logic
   for (char of chars) {
     let skills = char.skills;

@@ -23,7 +23,7 @@ async function skillSort(pkg) {
   //Define
   let state = _.cloneDeep(pkg.state);
   let { target, turnid, effects } = pkg;
-  let char = state[target.team].char[target.id];
+  let char = state[target.team].chars[target.id];
   let status = char.status;
   //Check
   if (state.turnid !== turnid) {

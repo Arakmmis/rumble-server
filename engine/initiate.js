@@ -10,13 +10,13 @@ function initiate(pkg) {
   let char = getChar();
 
   let odd = {
-    char: [_.cloneDeep(newChar), _.cloneDeep(sakura), _.cloneDeep(shikamaru)],
+    chars: [_.cloneDeep(newChar), _.cloneDeep(sakura), _.cloneDeep(shikamaru)],
     energy: energy(1),
     name: pkg.players[0],
     using: []
   };
   let even = {
-    char: [_.cloneDeep(newChar), _.cloneDeep(sakura), _.cloneDeep(shikamaru)],
+    chars: [_.cloneDeep(newChar), _.cloneDeep(sakura), _.cloneDeep(shikamaru)],
     energy: energy(),
     name: pkg.players[1],
     using: []

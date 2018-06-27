@@ -9,7 +9,7 @@ async function cleanupUsing(pkg) {
   //Logic
   for (skill of using) {
     let turnid = skill.turnid;
-    let chars = state[ally].char.concat(state[enemy].char);
+    let chars = state[ally].chars.concat(state[enemy].chars);
     let count = 0;
     //Check
     if (skill.remove === true) {

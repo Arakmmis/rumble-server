@@ -34,7 +34,7 @@ async function onSkillApply(pkg) {
   let state = _.cloneDeep(pkg.state);
   let { ally, enemy, item } = pkg;
   let { caster, turnid } = item;
-  let chars = state[ally].char.concat(state[enemy].char);
+  let chars = state[ally].chars.concat(state[enemy].chars);
   for (char of chars) {
     state = await apply({ state, char, turnid, caster });
   }

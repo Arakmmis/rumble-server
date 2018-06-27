@@ -10,7 +10,7 @@ async function cleanupPersistence(pkg) {
   let { ally, enemy, queue } = pkg;
   let allQueue = queue.concat(state[enemy].using);
   let turnid = state.turnid;
-  let chars = state[ally].char.concat(state[enemy].char);
+  let chars = state[ally].chars.concat(state[enemy].chars);
   let toRemove = allQueue.filter(x => x.remove === true);
   //Logic
   for (item of toRemove) {

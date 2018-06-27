@@ -4,7 +4,7 @@ async function durationReduce(pkg) {
   //Define
   let state = _.cloneDeep(pkg.state);
   let { ally, enemy, turnid, parent, caster } = pkg;
-  let chars = state[ally].char.concat(state[enemy].char);
+  let chars = state[ally].chars.concat(state[enemy].chars);
   let turn = state.turn % 2 === 0 ? "even" : "odd";
   //Logic
   for (char of chars) {

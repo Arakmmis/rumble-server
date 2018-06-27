@@ -8,7 +8,7 @@ async function durationRemove(pkg) {
   //Define
   let state = _.cloneDeep(pkg.state);
   let { ally, enemy, turnid } = pkg;
-  let chars = state[ally].char.concat(state[enemy].char);
+  let chars = state[ally].chars.concat(state[enemy].chars);
   //Logic
   for (char of chars) {    
     char.status.onSkill = remove(char.status.onSkill, turnid);

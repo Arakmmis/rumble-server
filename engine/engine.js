@@ -9,9 +9,9 @@ async function skillSort(res) {
   //Logic
   for (res of effects) {
     if (res.type === "damage") {
-      state[enemy].char[0].status.onSkill = state[
+      state[enemy].chars[0].status.onSkill = state[
         enemy
-      ].char[0].status.onSkill.concat({ ...res, turnid: state.turnid });
+      ].chars[0].status.onSkill.concat({ ...res, turnid: state.turnid });
     }
   }
   //Return
@@ -55,7 +55,7 @@ function getSkill(res) {
   //Define
   let { ally, skill, state } = res;
   //Return
-  return state[ally].char[0].skills[skill];
+  return state[ally].chars[0].skills[skill];
 }
 
 function damage(res) {
@@ -63,21 +63,21 @@ function damage(res) {
   let state = _.cloneDeep(res.state);
   let { enemy, effect } = res;
   //Return
-  return state[enemy].char[0].hp - effect.valDmg;
+  return state[enemy].chars[0].hp - effect.valDmg;
 }
 
 async function onSkillApply(res) {
   //Define
   let state = _.cloneDeep(res.state);
   let { enemy, turnid } = res;
-  let effects = state[enemy].char[0].status.onSkill.filter(
+  let effects = state[enemy].chars[0].status.onSkill.filter(
     x => x.turnid === turnid
   );
   //Logic
   for (res of effects) {
     console.log(res);
     if (res.type === "damage") {
-      state[enemy].char[0].hp = damage({
+      state[enemy].chars[0].hp = damage({
         state: state,
         enemy: enemy,
         effect: res

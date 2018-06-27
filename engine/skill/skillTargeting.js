@@ -11,7 +11,7 @@ async function skillTargeting(pkg) {
   let targeting = skill.target;
   //Targeting
   if (targeting === "all enemies") {
-    for (let { char, index } of state[enemy].char.map((x, i) => {
+    for (let { char, index } of state[enemy].chars.map((x, i) => {
       return {
         char: x,
         index: i

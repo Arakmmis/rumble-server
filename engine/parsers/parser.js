@@ -11,7 +11,7 @@ async function parser(pkg) {
   //Define
   let state = _.cloneDeep(pkg.state);
   let { ally, enemy } = pkg;
-  let chars = state[ally].char.concat(state[enemy].char);
+  let chars = state[ally].chars.concat(state[enemy].chars);
 
   //Skill Parsing
   for (let char of chars) {

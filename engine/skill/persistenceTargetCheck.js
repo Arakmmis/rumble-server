@@ -6,7 +6,7 @@ module.exports = function persistenceCheck(pkg) {
   let state = _.cloneDeep(pkg.state);
   let { caster, char } = pkg;
   let turnid = state.turnid;
-  let casterChar = state[caster.team].char[caster.id];
+  let casterChar = state[caster.team].chars[caster.id];
   let skill = casterChar.skills[pkg.skill];
   let persistence = skill.persistence;
   //Return

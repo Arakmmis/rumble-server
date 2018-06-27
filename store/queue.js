@@ -23,7 +23,7 @@ function queue() {
         //No Opponent
         queue.push({
           player: payload.player,
-          char: payload.char,
+          chars: payload.chars,
           socket: payload.socket,
           room: uniqid.time()
         }); //Add self to Queue
