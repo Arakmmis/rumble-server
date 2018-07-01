@@ -6,7 +6,7 @@ module.exports = function persistenceCheck(pkg) {
   let state = _.cloneDeep(pkg.state);
   let { caster, char } = pkg;
   let turnid = state.turnid;
-  let casterChar = state[caster.team].chars[caster.id];
+  let casterChar = state[caster.team].chars[caster.char];
   let skill = casterChar.skills[pkg.skill];
   let persistence = skill.persistence;
   //Return
@@ -26,7 +26,7 @@ module.exports = function persistenceCheck(pkg) {
       char.status.onAttack = char.status.onAttack.filter(
         x =>
           !(
-            x.caster.id === caster.id &&
+            x.caster.char === caster.char &&
             x.caster.team === caster.team &&
             x.turnid === turnid
           )
@@ -34,7 +34,7 @@ module.exports = function persistenceCheck(pkg) {
       char.status.onReceive = char.status.onReceive.filter(
         x =>
           !(
-            x.caster.id === caster.id &&
+            x.caster.char === caster.char &&
             x.caster.team === caster.team &&
             x.turnid === turnid
           )
@@ -42,7 +42,7 @@ module.exports = function persistenceCheck(pkg) {
       char.status.onSkill = char.status.onSkill.filter(
         x =>
           !(
-            x.caster.id === caster.id &&
+            x.caster.char === caster.char &&
             x.caster.team === caster.team &&
             x.turnid === turnid
           )
@@ -50,7 +50,7 @@ module.exports = function persistenceCheck(pkg) {
       char.status.onState = char.status.onState.filter(
         x =>
           !(
-            x.caster.id === caster.id &&
+            x.caster.char === caster.char &&
             x.caster.team === caster.team &&
             x.turnid === turnid
           )

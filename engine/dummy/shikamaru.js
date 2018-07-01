@@ -108,7 +108,7 @@ let effect2a = {
   turnid: "",
   target: "target",
   duration: [
-    { default: 1 },
+    { default: 4 },
     {
       subject: "state", //What to look at
       evaluator: "exist", //How to evaluate
@@ -192,7 +192,7 @@ let skill2 = {
   id: "narutoskill2",
   index: 1,
   caster: "naruto",
-  persistence: "action",
+  persistence: "control",
   class: "energy",
   effects: [effect2a],
   target: "all enemies",
@@ -201,7 +201,7 @@ let skill2 = {
     g: 0,
     b: 0,
     r: 0,
-    w: 1,
+    w: 0,
     rd: 0
   },
   counter: 0,

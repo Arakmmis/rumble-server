@@ -3,7 +3,18 @@ let evaluate = require("../parsers/evaluate.js");
 
 function assign(pkg) {
   //Define
-  let { status, char, effect, caster, target, turnid, picture, parent } = pkg;
+  let {
+    status,
+    char,
+    effect,
+    caster,
+    target,
+    turnid,
+    picture,
+    parent,
+    persistence,
+    name
+  } = pkg;
   let thisTurn = caster.team;
   let nextTurn = caster.team === "odd" ? "even" : "odd";
   //Return
@@ -12,7 +23,10 @@ function assign(pkg) {
     current: effect.val,
     duration: evaluate({ char, evaluatee: effect.duration }),
     during: effect.during === "this turn" ? thisTurn : nextTurn,
+    persistence,
     caster,
+    name,
+    active: true,
     turnid,
     parent,
     picture

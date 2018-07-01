@@ -12,7 +12,7 @@ function getGet(pkg) {
   const getQueue = () => {
     let action = _.cloneDeep(pkg.action);
     let result = _.uniqBy(action, v =>
-      [v.turnid, v.caster.id, v.caster.team].join()
+      [v.turnid, v.caster.char, v.caster.team].join()
     );
     return result.map(x => {
       return {

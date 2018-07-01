@@ -19,13 +19,14 @@ async function durationReduce(pkg) {
         x =>
           x.turnid === turnid &&
           x.parent === parent &&
-          x.caster.id === caster.id &&
+          x.caster.char === caster.char &&
           x.caster.team === caster.team &&
           x.during === turn
       );
     for (effect of status) {
       effect.duration = effect.duration - 1;
       effect.current = effect.val;
+      effect.active = true;
     }
   }
   //Return

@@ -4,7 +4,7 @@ module.exports = function persistenceCheck(pkg) {
   //Define
   let { state, item } = pkg;
   let { caster } = item;
-  let char = state[caster.team].chars[caster.id];
+  let char = state[caster.team].chars[caster.char];
   let skill = char.skills[item.skill];
   let persistence = skill.persistence;
   //Return

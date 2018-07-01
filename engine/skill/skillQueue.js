@@ -4,6 +4,7 @@ let skillTargeting = require("./skillTargeting.js");
 let onSkillApply = require("./onSkillApply.js");
 let energyCost = require("../energy/energyCost");
 let skillCooldown = require("./skillCooldown");
+let persistenceCheck = require("./persistenceCheck");
 let persistenceCasterCheck = require("./persistenceCasterCheck");
 
 async function skillQueue(pkg) {
@@ -32,22 +33,9 @@ async function skillQueue(pkg) {
     //Target
     state = await skillTargeting({ state, ally, enemy, skill, item });
   }
+
   //Persistence Target State Check
-  // let chars = state[ally].chars.concat(statepenemy.chars);
-  // for (let char of chars) {
-  //   //Persistence Check
-  //   //Target State Check
-  //   let persistence = persistenceTargetCheck({
-  //     state,
-  //     caster,
-  //     char,
-  //     skill: effect.parent
-  //   });
-  //   if (persistence.status) {
-  //     state = persistence.state;
-  //     continue;
-  //   }
-  // }
+  state = await persistenceCheck({ state, ally, enemy });
 
   //Sequence
   let allQueue = queue.concat(state[enemy].using);
@@ -57,7 +45,6 @@ async function skillQueue(pkg) {
     //Persistence
     //Caster State Check
     let persistence = persistenceCasterCheck({ state, item });
-    console.log("queue", persistence);
     if (persistence) {
       continue;
     }

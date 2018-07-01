@@ -9,8 +9,9 @@ async function apply(pkg) {
   let effects = char.status.onSkill.filter(
     x =>
       x.turnid === pkg.turnid &&
-      x.caster.id === pkg.caster.id &&
-      x.caster.team === pkg.caster.team
+      x.caster.char === pkg.caster.char &&
+      x.caster.team === pkg.caster.team &&
+      x.active === true
   );
   //Logic
   for (effect of effects) {

@@ -9,6 +9,8 @@ async function skillTargeting(pkg) {
   let { caster, target, turnid } = item;
   let parent = item.skill;
   let targeting = skill.target;
+  let persistence = skill.persistence;
+  let name = skill.name;
   //Targeting
   if (targeting === "all enemies") {
     for (let { char, index } of state[enemy].chars.map((x, i) => {
@@ -32,17 +34,22 @@ async function skillTargeting(pkg) {
         ...item,
         target,
         picture,
+        persistence,
+        name,
         effects,
         parent,
         state
       });
     }
   } else {
+    console.log('single!')
     //Sort for Individual
     state = await skillSort({
       state,
       target,
       picture,
+      persistence,
+      name,
       effects,
       parent,
       ...item

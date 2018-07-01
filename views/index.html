@@ -136,7 +136,7 @@
                     }
                     for (let skill of skills) {
                         console.log(skill)
-                        let cost = this.state[skill.caster.team].char[skill.caster.id].skills[skill.skill].cost
+                        let cost = this.state[skill.caster.team].char[skill.caster.char].skills[skill.skill].cost
                         // costUsing += cost.g + cost.b + cost.r + cost.w + cost.rd
                         cU.g += cost.g
                         cU.b += cost.b
@@ -169,7 +169,7 @@
                     }
                     for (let skill of skills) {
                         console.log(skill)
-                        let cost = this.state[skill.caster.team].char[skill.caster.id].skills[skill.skill].cost
+                        let cost = this.state[skill.caster.team].char[skill.caster.char].skills[skill.skill].cost
                         // costUsing += cost.g + cost.b + cost.r + cost.w + cost.rd                        
                         cU.rd += cost.rd
                         console.log(cU)
@@ -224,7 +224,7 @@
                 target: function (pkg) {
                     let buffer = {
                         caster: {
-                            id: this.buffer.caster.id,
+                            id: this.buffer.caster.char,
                             team: this.buffer.caster.team
                         },
                         skill: this.buffer.skill,
