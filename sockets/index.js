@@ -59,10 +59,12 @@ module.exports = function(http) {
         return;
       }
       //Engine Data
+      console.log(packet.exchange);
       let pkgEngine = {
         state: match.state[match.state.length - 1],
         action: packet.action,
-        redeem: packet.redeem
+        redeem: packet.redeem,
+        exchange: packet.exchange
       };
       engine.battle(pkgEngine, res => {
         let pkgUpdate = {
