@@ -68,7 +68,7 @@ let effect1b = {
 
 let skill1 = {
   name: "KO Punch",
-  description: "",
+  description: "PUNCH PUNCH!",
   picture: "https://i.imgur.com/EqnqvRO.jpg",
   classes: "instant, physical",
   id: "",
