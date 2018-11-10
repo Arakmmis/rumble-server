@@ -49,7 +49,7 @@ module.exports = function(http) {
     });
 
     socket.on("battle", packet => {
-      console.log(packet);
+      console.log('info in', packet);
       //Match Data
       let pkgMatch = {
         room: packet.room
@@ -66,6 +66,7 @@ module.exports = function(http) {
         redeem: packet.redeem,
         exchange: packet.exchange
       };
+      console.log('pkgEngine', pkgEngine)
       engine.battle(pkgEngine, res => {
         let pkgUpdate = {
           room: packet.room,
